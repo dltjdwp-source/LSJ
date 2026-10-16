@@ -1,4 +1,4 @@
-/* 기초 설정 */
+/* 1. 기초 설정 */
 * {
     margin: 0;
     padding: 0;
@@ -6,12 +6,11 @@
 }
 
 body {
-    background-color: #0a0a0a; /* 딥 블랙 */
-    color: #ffffff;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
 }
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -23,7 +22,8 @@ a {
     color: inherit;
     transition: 0.3s;
 }
-/* 1. CSS 변수 정의 */
+
+/* 2. 전역 스타일 적용 */
 :root {
     /* Light Mode (기본) */
     --bg-main: #ffffff;
@@ -56,19 +56,6 @@ a {
     --point-blue: #1e40af; 
 }
 
-/* 2. 전역 스타일 적용 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    font-family: 'Roboto', sans-serif;
-    transition: background-color var(--transition-speed), color var(--transition-speed);
-}
 
 /* 3. 기존 스타일 치환 */
 header {
