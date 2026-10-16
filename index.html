@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion 404 - Designer Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Roboto & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+        <!-- Swiper CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    </head>
+</head>
+<body>
+
+    <!-- 상단 영역 -->
+    <header>
+        <div class="container header-inner">
+            <h1 class="logo<!-- ... 이전 코드 생략 ... -->
+    <header>
+        <div class="container header-inner">
+            <h1 class="logo">FASHION<span>404</span></h1>
+            <nav style="display: flex; align-items: center;">
+                <ul class="menu-list" style="margin-right: 20px;">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Show</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+                <!-- 테마 토글 버튼 -->
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <span class="mode-icon">🌙</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 영역 -->
+    <main>
+        <!-- 메인 배너 영역 추가 -->
+        <section class="main-banner">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <!-- 슬라이드 1 -->
+                    <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=1920');">
+                        <div class="banner-text">
+                            <p class="sub-title">2025 S/S COLLECTION</p>
+                            <h2>BEYOND THE <br><span class="accent-pink">LIMITS</span></h2>
+                            <a href="#" class="btn-primary">EXPLORE</a>
+                        </div>
+                    </div>
+                    <!-- 슬라이드 2 -->
+                    <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1920');">
+                        <div class="banner-text">
+                            <p class="sub-title">CONCEPTUAL ART</p>
+                            <h2>GLITCH IN <br><span class="accent-blue">REALITY</span></h2>
+                            <a href="#" class="btn-primary">VIEW SHOW</a>
+                        </div>
+                    </div>
+                    <!-- 슬라이드 3 -->
+                    <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&q=80&w=1920');">
+                        <div class="banner-text">
+                            <p class="sub-title">FASHION 404 EXCLUSIVE</p>
+                            <h2>ERROR <br><span class="accent-pink">IS BEAUTY</span></h2>
+                            <a href="#" class="btn-primary">SHOP NOW</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 페이지네이션 & 네비게이션 버튼 -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+        <section class="hero">
+            <div class="container">
+                <h2>ERROR OR ART? <br><span class="accent-pink">FASHION 404</span></h2>
+            </div>
+        </section>
+
+        <!-- 이벤트 섹션 -->
+        <section class="event-section container">
+            <h2 class="section-title">LATEST EVENTS</h2>
+            <div class="card-grid">
+                <!-- 카드 1 -->
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://www.elle.co.kr/resources/online/online_image/2026/02/12/b1ab71f8-726e-49d7-91a3-30cf3ae240e0.jpg');"></div>
+                    <div class="card-content">
+                        <h3>2024 Winter Collection</h3>
+                        <p>디지털 에러에서 영감을 받은 독특한 실루엣의 겨울 컬렉션입니다.</p>
+                        <a href="#" class="btn-more">View More</a>
+                    </div>
+                </div>
+                <!-- 카드 2 -->
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=600');"></div>
+                    <div class="card-content">
+                        <h3>Runway: The Glitch</h3>
+                        <p>서울 패션위크에서 선보인 'The Glitch' 런웨이 하이라이트.</p>
+                        <a href="#" class="btn-more">View More</a>
+                    </div>
+                </div>
+                <!-- 카드 3 -->
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=600');"></div>
+                    <div class="card-content">
+                        <h3>Pop-up Store</h3>
+                        <p>성수동에서 진행되는 팝업 스토어 및 팬 미팅 이벤트 안내.</p>
+                        <a href="#" class="btn-more">View More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 하단 영역 -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-logo">FASHION<span>404</span></div>
+            <div class="company-info">
+                <p>Designer: Jane Doe | Business: 123-45-67890</p>
+                <p>Address: 404 Fashion St, Seoul, South Korea</p>
+                <p>Email: contact@fashion404.com | Tel: 02-1234-5678</p>
+                <p class="copyright">&copy; 2026 Fashion 404. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
