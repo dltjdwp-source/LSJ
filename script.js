@@ -93,7 +93,7 @@ const swiper = new Swiper(".mySwiper", {
         disableOnInteraction: false,
     },
     pagination: {
-        el: ".swiper-pagination",
+        el: ".banner-pagination",
         clickable: true,
     },
     grabCursor: true,
@@ -113,10 +113,41 @@ swiper.on('touchEnd', function () {
 });
 
 // 페이지네이션 클릭 시에도 5초 대기 후 재시작
-document.querySelector('.swiper-pagination').addEventListener('click', function() {
+document.querySelector('.mySwiper .banner-pagination').addEventListener('click', function() {
     swiper.autoplay.stop();
     clearTimeout(restartTimer);
     restartTimer = setTimeout(() => {
         swiper.autoplay.start();
     }, 5000);
+});
+
+/**
+ * 세계의 패션쇼 카드 슬라이더
+ */
+const fashionWeekSwiper = new Swiper('.fashion-week-swiper', {
+    loop: true, // 마지막 카드와 첫 카드를 끊김 없이 순환합니다.
+    grabCursor: true,
+    navigation: {
+        nextEl: '.fashion-week-next',
+        prevEl: '.fashion-week-prev',
+    },
+    pagination: {
+        el: '.fashion-week-pagination',
+        clickable: true,
+    },
+    // autoplay: { delay: 3000 }, // 자동 재생이 필요할 때 주석을 해제하세요.
+    breakpoints: {
+        0: {
+            slidesPerView: 1.3,
+            spaceBetween: 16,
+        },
+        768: {
+            slidesPerView: 2.5,
+            spaceBetween: 20,
+        },
+        1024: {
+            slidesPerView: 3.5,
+            spaceBetween: 24,
+        },
+    },
 });
