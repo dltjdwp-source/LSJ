@@ -5,6 +5,53 @@ const themeToggle = document.getElementById('theme-toggle');
 const modeIcon = themeToggle.querySelector('.mode-icon');
 const htmlElement = document.documentElement;
 
+/**
+ * GNB 메가 메뉴와 반응형 햄버거 메뉴
+ */
+const siteHeader = document.getElementById('site-header');
+const menuToggle = document.getElementById('menu-toggle');
+const desktopMenu = document.querySelector('.site-header .gnb');
+const desktopBreakpoint = window.matchMedia('(max-width: 1024px)');
+let menuCloseTimer;
+
+function setMenuOpen(isOpen) {
+    siteHeader.classList.toggle('is-open', isOpen);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+    document.getElementById('mega-menu').setAttribute('aria-hidden', String(!isOpen || desktopBreakpoint.matches));
+}
+
+desktopMenu.addEventListener('pointerenter', () => {
+    if (!desktopBreakpoint.matches) {
+        clearTimeout(menuCloseTimer);
+        setMenuOpen(true);
+    }
+});
+
+siteHeader.addEventListener('pointerleave', () => {
+    if (!desktopBreakpoint.matches) {
+        menuCloseTimer = setTimeout(() => setMenuOpen(false), 100);
+    }
+});
+
+desktopMenu.addEventListener('focusin', () => {
+    if (!desktopBreakpoint.matches) setMenuOpen(true);
+});
+
+siteHeader.addEventListener('focusout', (event) => {
+    if (!siteHeader.contains(event.relatedTarget) && !desktopBreakpoint.matches) setMenuOpen(false);
+});
+
+menuToggle.addEventListener('click', () => {
+    setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+});
+
+document.addEventListener('click', (event) => {
+    if (!siteHeader.contains(event.target)) setMenuOpen(false);
+});
+
+desktopBreakpoint.addEventListener('change', () => setMenuOpen(false));
+
 // 초기 테마 설정 함수
 function initTheme() {
     const savedTheme = localStorage.getItem('theme');

@@ -523,6 +523,223 @@ footer {
     color: #555 !important;
 }
 
+/* 메가 메뉴 및 반응형 내비게이션 */
+.site-header {
+    height: 80px;
+    position: sticky;
+    overflow: visible;
+}
+
+.site-header .header-inner {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr) 60px;
+    align-items: center;
+}
+
+.site-header .gnb {
+    min-width: 0;
+}
+
+.site-header .menu-list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    list-style: none;
+}
+
+.site-header .menu-list li {
+    margin: 0;
+    text-align: center;
+}
+
+.site-header .menu-list a {
+    display: block;
+    padding: 30px 8px;
+    color: var(--text-primary);
+    font-size: 0.92rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.site-header .menu-list a:hover,
+.site-header .menu-list a:focus-visible {
+    color: var(--point-pink);
+}
+
+.header-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 100vw;
+    max-height: 0;
+    overflow: hidden;
+    transform: translate(-50%, -8px);
+    background: #1a2540;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.4s ease, transform 0.4s ease, opacity 0.3s ease, visibility 0.4s;
+}
+
+.site-header.is-open .mega-menu {
+    max-height: 360px;
+    transform: translate(-50%, 0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.mega-menu-inner {
+    display: grid;
+    grid-template-columns: 190px repeat(5, minmax(0, 1fr)) 60px;
+    padding-top: 28px;
+    padding-bottom: 32px;
+}
+
+.submenu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    list-style: none;
+    text-align: center;
+}
+
+.submenu-list a {
+    display: inline-block;
+    color: #b8c0d0;
+    font-size: 0.92rem;
+    transition: color 0.3s ease;
+}
+
+.submenu-list a:hover,
+.submenu-list a:focus-visible {
+    color: #fff;
+}
+
+.menu-toggle,
+.mobile-navigation {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .site-header .header-inner {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .site-header .gnb {
+        display: none;
+    }
+
+    .mega-menu {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 12px;
+    }
+
+    .menu-toggle {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        padding: 9px;
+        border: 1px solid var(--border-color);
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        width: 100%;
+        height: 2px;
+        background: var(--text-primary);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .site-header.is-open .menu-toggle span:first-child {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .site-header.is-open .menu-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .site-header.is-open .menu-toggle span:last-child {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .mobile-navigation {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 0;
+        display: block;
+        overflow: auto;
+        background: #1a2540;
+        opacity: 0;
+        visibility: hidden;
+        transition: max-height 0.4s ease, opacity 0.3s ease, visibility 0.4s;
+    }
+
+    .site-header.is-open .mobile-navigation {
+        max-height: calc(100vh - 80px);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-menu-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 16px;
+        padding: 28px max(24px, calc((100vw - 960px) / 2));
+        list-style: none;
+    }
+
+    .mobile-menu-list > li > a {
+        display: block;
+        margin-bottom: 12px;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .mobile-menu-list ul {
+        display: grid;
+        gap: 10px;
+        list-style: none;
+    }
+
+    .mobile-menu-list ul a {
+        color: #b8c0d0;
+        transition: color 0.3s ease;
+    }
+
+    .mobile-menu-list a:hover,
+    .mobile-menu-list a:focus-visible {
+        color: #fff;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header .header-inner {
+        flex-direction: row;
+        padding: 0 20px;
+    }
+
+    .mobile-menu-list {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        padding: 24px 20px;
+    }
+}
+
 /* 반응형 설정 */
 @media (max-width: 992px) {
     .card-grid {

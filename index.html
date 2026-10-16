@@ -5,36 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion 404 - Designer Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts: Roboto & Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-        <!-- Swiper CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-        <link rel="stylesheet" href="style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-    </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body>
-
-    <!-- 상단 영역 -->
-    <header>
-        <div class="container header-inner">
-            <h1 class="logo<!-- ... 이전 코드 생략 ... -->
-    <header>
+    <!-- 상단 영역 및 전체 하위 메뉴 -->
+    <header class="site-header" id="site-header">
         <div class="container header-inner">
             <h1 class="logo">Best<span>1016</span></h1>
-            <nav style="display: flex; align-items: center;">
-                <ul class="menu-list" style="margin-right: 20px;">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Show</a></li>
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Community</a></li>
+            <nav class="gnb" aria-label="주 메뉴">
+                <ul class="menu-list">
+                    <li><a href="#company">회사소개</a></li>
+                    <li><a href="#business">사업영역</a></li>
+                    <li><a href="#products">제품·서비스</a></li>
+                    <li><a href="#support">고객지원</a></li>
+                    <li><a href="#community">커뮤니티</a></li>
                 </ul>
-                <!-- 테마 토글 버튼 -->
-                <button id="theme-toggle" aria-label="Toggle Theme">
+            </nav>
+            <div class="header-actions">
+                <button class="menu-toggle" id="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="primary-navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <button id="theme-toggle" type="button" aria-label="테마 전환">
                     <span class="mode-icon">🌙</span>
                 </button>
-            </nav>
+            </div>
         </div>
+
+        <!-- 데스크톱에서는 다섯 메뉴의 하위 항목을 한 패널에 표시합니다. -->
+        <div class="mega-menu" id="mega-menu" aria-hidden="true">
+            <div class="container mega-menu-inner">
+                <div class="mega-menu-spacer" aria-hidden="true"></div>
+                <ul class="submenu-list">
+                    <li><a href="#company-greeting">인사말</a></li>
+                    <li><a href="#company-history">연혁</a></li>
+                    <li><a href="#company-vision">비전</a></li>
+                    <li><a href="#company-organization">조직도</a></li>
+                    <li><a href="#company-location">오시는 길</a></li>
+                </ul>
+                <ul class="submenu-list">
+                    <li><a href="#business-overview">사업소개</a></li>
+                    <li><a href="#business-platform">플랫폼 사업</a></li>
+                    <li><a href="#business-consulting">디지털 컨설팅</a></li>
+                    <li><a href="#business-partners">파트너십</a></li>
+                </ul>
+                <ul class="submenu-list">
+                    <li><a href="#products-overview">제품 전체보기</a></li>
+                    <li><a href="#service-platform">서비스 플랫폼</a></li>
+                    <li><a href="#service-solutions">맞춤 솔루션</a></li>
+                    <li><a href="#service-security">보안 서비스</a></li>
+                    <li><a href="#service-cloud">클라우드</a></li>
+                </ul>
+                <ul class="submenu-list">
+                    <li><a href="#support-notice">공지사항</a></li>
+                    <li><a href="#support-faq">자주 묻는 질문</a></li>
+                    <li><a href="#support-guide">이용 가이드</a></li>
+                    <li><a href="#support-inquiry">문의하기</a></li>
+                </ul>
+                <ul class="submenu-list">
+                    <li><a href="#community-news">새소식</a></li>
+                    <li><a href="#community-stories">고객 사례</a></li>
+                    <li><a href="#community-events">이벤트</a></li>
+                    <li><a href="#community-media">미디어룸</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 태블릿·모바일 내비게이션: 햄버거를 눌렀을 때 하위 메뉴도 함께 펼칩니다. -->
+        <nav class="mobile-navigation" id="primary-navigation" aria-label="모바일 주 메뉴">
+            <ul class="mobile-menu-list">
+                <li><a href="#company">회사소개</a><ul><li><a href="#company-greeting">인사말</a></li><li><a href="#company-history">연혁</a></li><li><a href="#company-vision">비전</a></li><li><a href="#company-organization">조직도</a></li><li><a href="#company-location">오시는 길</a></li></ul></li>
+                <li><a href="#business">사업영역</a><ul><li><a href="#business-overview">사업소개</a></li><li><a href="#business-platform">플랫폼 사업</a></li><li><a href="#business-consulting">디지털 컨설팅</a></li><li><a href="#business-partners">파트너십</a></li></ul></li>
+                <li><a href="#products">제품·서비스</a><ul><li><a href="#products-overview">제품 전체보기</a></li><li><a href="#service-platform">서비스 플랫폼</a></li><li><a href="#service-solutions">맞춤 솔루션</a></li><li><a href="#service-security">보안 서비스</a></li><li><a href="#service-cloud">클라우드</a></li></ul></li>
+                <li><a href="#support">고객지원</a><ul><li><a href="#support-notice">공지사항</a></li><li><a href="#support-faq">자주 묻는 질문</a></li><li><a href="#support-guide">이용 가이드</a></li><li><a href="#support-inquiry">문의하기</a></li></ul></li>
+                <li><a href="#community">커뮤니티</a><ul><li><a href="#community-news">새소식</a></li><li><a href="#community-stories">고객 사례</a></li><li><a href="#community-events">이벤트</a></li><li><a href="#community-media">미디어룸</a></li></ul></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- 메인 영역 -->
