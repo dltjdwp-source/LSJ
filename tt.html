@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion 404</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Color Variables --- */
+        :root {
+            --color-black: #000000;
+            --color-dark-bg: #111111;
+            --color-hotpink: #FF69B4; /* Hot Pink Accent */
+            --color-darkblue: #000080; /* Dark Blue Accent */
+            --color-text-light: #f0f0f0;
+        }
+
+        /* --- General Styling & Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-black);
+            color: var(--color-text-light);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-text-light);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--color-hotpink);
+        }
+
+        /* --- Header (Top Area) --- */
+        header {
+            background-color: var(--color-dark-bg);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-hotpink);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: var(--color-hotpink);
+            letter-spacing: 3px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-transform: uppercase;
+            font-size: 1em;
+            padding: 5px 10px;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: var(--color-darkblue);
+            border-bottom: 2px solid var(--color-darkblue);
+        }
+
+        /* --- Main Content (Event Section) --- */
+        .main-content {
+            padding: 50px 5%;
+            text-align: center;
+        }
+
+        .event-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            margin-bottom: 40px;
+            color: var(--color-hotpink);
+            text-transform: uppercase;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .event-card {
+            background-color: var(--color-dark-bg);
+            border: 1px solid #333;
+            border-top: 5px solid var(--color-darkblue); /* Dark Blue Accent */
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            overflow: hidden;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 105, 180, 0.3); /* Hot Pink Shadow on hover */
+        }
+
+        .event-card h3 {
+            color: var(--color-hotpink);
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        
+        .event-card p {
+            font-size: 0.95em;
+            color: #ccc;
+        }
+
+        /* --- Footer (Bottom Area) --- */
+        footer {
+            background-color: var(--color-black);
+            padding: 30px 5%;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--color-darkblue);
+            margin-bottom: 15px;
+        }
+
+        .company-info p {
+            font-size: 0.85em;
+            color: #777;
+        }
+        
+        .company-info a {
+            color: var(--color-hotpink);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. 상단영역 (로고, 메뉴리스트) -->
+    <header>
+        <div class="logo">Fashion 404</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#show">Show</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 2. 메인영역 (이벤트 파트) -->
+    <main class="main-content">
+        <h1 class="event-title">FEATURE EVENTS</h1>
+        
+        <div class="card-container">
+            
+            <!-- Card 1 -->
+            <div class="event-card">
+                <h3>Spring Collection 2024</h3>
+                <p>주최 디자이너의 최신 봄 컬렉션 프리뷰 이벤트. 독점적인 디자인을 만나보세요.</p>
+                <a href="#" style="display: inline-block; margin-top: 10px; color: var(--color-hotpink);">VIEW DETAILS &gt;</a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="event-card">
+                <h3>Behind The Scenes: Studio Tour</h3>
+                <p>패션 작품이 탄생하는 디자이너의 작업실을 공개합니다. 영감과 창작 과정을 엿보세요.</p>
+                <a href="#" style="display: inline-block; margin-top: 10px; color: var(--color-hotpink);">VIEW DETAILS &gt;</a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="event-card">
+                <h3>Community Styling Workshop</h3>
+                <p>직접 옷을 스타일링해보는 워크숍. 패션 트렌드를 실용적으로 배울 수 있는 기회입니다.</p>
+                <a href="#" style="display: inline-block; margin-top: 10px; color: var(--color-hotpink);">VIEW DETAILS &gt;</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 3. 하단영역 (하단 로고, 회사 정보) -->
+    <footer>
+        <div class="footer-logo">Fashion 404</div>
+        <div class="company-info">
+            <p>&copy; 2024 Fashion 404. All rights reserved.</p>
+            <p>Design by [Designer Name] | Contact: <a href="mailto:info@fashion404.com">info@fashion404.com</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
