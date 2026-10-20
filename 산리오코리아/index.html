@@ -6,10 +6,42 @@
     <!-- 인터널스타일시트(internal style sheet) -->
     <!-- 상단영역 스타일 (Top Area Styles) -->
     <style>
-      .top-real 
-            /* 상단 영역 전체에 필요한 공통 스타일을 여기에 추가하세요 */
-        
-        .top-inner {
+      /* 웹폰트 로딩하기(CDN방식)
+        CDN은 Content Delivery Networt 즉, 네트워크 망으로 컨텐트를 배탈시켜 쓰는 방식 */
+
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic&display=swap");
+
+      @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
+
+      /* 전체 루트 설정 */
+      html {
+        /* rem단위를 위한 Root 글자크기설정 */
+        font-size: 10px;
+        /* 왜 10px인가? rem단위에 계산이 용이함! */
+      }
+      html,body {
+        /* 웹폰트 */
+        font-family: Montserrat, "Nanum Barun Gothic", AppleGothic, Dotum, sans-serif;
+      }
+      /* 공통요소 초기화 */
+      html, body, div, span, applet, object, iframe,
+      h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+      a, abbr, acronym, address, big, cite, code,
+      del, dfn, em, img, ins, kbd, q, s, samp,
+      small, strike, strong, sub, sup, tt, var,
+      b, u, i, center,
+      dl, dt, dd, ol, ul, li,
+      fieldset, form, label, legend,
+      table, caption, tbody, tfoot, thead, tr, th, td,
+      article, aside, canvas, details, embed, 
+      figure, figcaption, footer, header, hgroup, 
+      menu, nav, output, ruby, section, summary,
+      time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+      }
+
+      .top-inner {
         max-width: 1440px; /* 최대 너비 지정 */
         margin: 0 auto; /* 가운데 정렬 */
         display: flex; /* 가로 레이아웃을 위한 flex 사용 */
@@ -30,13 +62,12 @@
         list-style: none; /* 기본 리스트 마커 제거 */
         padding: 0; /* 패딩 제거 */
         margin: 0; /* 마진 제거 */
-        font-size: 1.12rem; /* 폰트 크기 */
-        font-family: "Pretendard", sans-serif; /* 폰트 지정 */
-        font-weight: 500; /* 폰트 두께 */
+        font-size: 1.6rem; /* 폰트 크기 */
       }
       .menu-list li a {
         color: inherit; /* 글자색 상속 */
         text-decoration: none; /* 밑줄 제거 */
+        text-transform: uppercase; /* 대문자 변환 */
       }
       /* 배너영역 스타일 */
       .banner-real {
@@ -94,14 +125,23 @@
         <section class="banner-real">
           <!-- 배너영역 내용 -->
           <div class="center-banner">
-            <img src="./images/main_visual_pc_v1.png" alt="메인 비주얼" class="main-visual-img"/>
+            <img
+              src="./images/main_visual_pc_v1.png"
+              alt="메인 비주얼"
+              class="main-visual-img"
+            />
           </div>
           <!-- SNS이동버튼박스 -->
           <div class="sns">
             <a href="https://www.instagram.com/sanrio_kr/" target="_blank">
-              <img src="./images/i_ins_pc_v3.png" alt="인스타그램"/></a>
-            <a href="https://www.youtube.com/c/sanriokorea/featured" target="_blank">
-              <img src="./images/i_you_pc_v3.png" alt="유튜브"/></a>
+              <img src="./images/i_ins_pc_v3.png" alt="인스타그램"
+            /></a>
+            <a
+              href="https://www.youtube.com/c/sanriokorea/featured"
+              target="_blank"
+            >
+              <img src="./images/i_you_pc_v3.png" alt="유튜브"
+            /></a>
           </div>
           <!-- 스크롤 유도 애니박스 -->
           <div class="scroll_btn">
