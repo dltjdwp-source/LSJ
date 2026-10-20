@@ -38,16 +38,14 @@
         color: inherit; /* 글자색 상속 */
         text-decoration: none; /* 밑줄 제거 */
       }
-      .main-real {
-        background: url("./images/main_visual_bg.jpg") repeat 0 0/50px;
-        /* 배경스타일 사용법:
-        background: 색 이 반 고 윙/크
-        background: 배경색 이미지 반복 고정 위치/크기 */
-      }
       /* 배너영역 스타일 */
       .banner-real {
         position: relative;
         padding: 80px;
+        background: url("./images/main_visual_bg.jpg") repeat 0 0/50px;
+        /* 배경스타일 사용법:
+        background: 색 이 반 고 윙/크
+        background: 배경색 이미지 반복 고정 위치/크기 */
       }
       .banner-real .center-banner {
         text-align: center;
@@ -71,7 +69,6 @@
   </head>
   <body>
     <main class="wrapper">
-      </main>
       <!-- 1. 상단영역 -->
       <header class="top-real">
         <!-- 상단영역 내용 -->
@@ -105,6 +102,11 @@
               <img src="./images/i_ins_pc_v3.png" alt="인스타그램"/></a>
             <a href="https://www.youtube.com/c/sanriokorea/featured" target="_blank">
               <img src="./images/i_you_pc_v3.png" alt="유튜브"/></a>
+          </div>
+          <!-- 스크롤 유도 애니박스 -->
+          <div class="scroll_btn">
+            <span class="mouse"><span></span></span>
+            <p>scroll down</p>
           </div>
         </section>
         <!-- 2-2. 캐릭터영역 -->
