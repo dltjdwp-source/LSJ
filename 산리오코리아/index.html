@@ -33,6 +33,15 @@
         font-weight: normal;
       }
 
+      /* 공통셋팅 */
+      /* 메인영역 하위박스 공통 */
+      /* 직계자식 선택자(>), 형제선택자(+) 
+        section + section 은 앞에 section 태그가 있는 section 태그를 모두 선택하라!
+        즉, 첫번째 section을 제외한 모든 section 선택 */
+      .main-area > section + section {
+        padding: 85px 0;
+      }
+
       .top-inner {
         max-width: 1440px; /* 최대 너비 지정 */
         margin: 0 auto; /* 가운데 정렬 */
@@ -192,7 +201,9 @@
       .tit-box {
         max-width: 1200px;
         margin: 0 auto;
-        outline: 3px dashed blue;
+        /* outline: 3px dashed blue; */
+        /* 대문자변환 */
+        text-transform: uppercase;
       }
       /* 타이틀파트 */
       .tit-box .part-tit {
@@ -202,11 +213,16 @@
         font-size: 5rem;
         font-weight: normal;
       }
-
+      
       /* 타이틀박스 하위 버튼박스 */
       .btn-box {
         text-align: center;
-        padding: 20px 0;
+        margin-bottom: 50px;
+        /* 버튼이 사라지면 하단 마진도 사라짐! */
+      }
+      /* 버튼출력안함 클래스 */
+      .btn-box.off {
+        display: none;
       }
 
       /* 타이틀 아래 버튼 */
@@ -248,10 +264,16 @@
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
+        /* gap 사이간격(값을 두개쓰면 가로,세로) */
+        gap: 20px;
       }
       /* 캐릭터카드 */
       .character-card {
-        width: 25%;
+        width: calc(25% - 15px);
+        /* calc(계산식)
+          +,- 는 기호 앞뒤를 반드시 띄어서야함!
+          *,/ 곱하기 나누기는 붙여써도 됨
+         */
         box-sizing: border-box;
         /* height: 285px;
         높이값이 없으면 기본값 auto임.
@@ -261,7 +283,7 @@
         /* 박스그림자
         box-shadow: inset hoff voff blur spread color; 
         inset은 내부그림자, 
-        hoff -x축이동, voff-y축이동, blur 경계선흐림
+        hoff - x축이동, voff - y축이동, blur - 경계선흐림
         spread - 그림자크기(확장분만씀) color - 그림자색
         */
         box-shadow: 4px 4px 10px #00000026;
@@ -271,7 +293,7 @@
         background: #fff;
       }
       /* 카드 내부상단 이미지박스 */
-      .character-card .card-imgs {
+      .character-card .card-img {
         /* 포지션을 준 이유: 자식요소중 앱솔루트 기준 */
         position: relative;
         /* height: 204px; 
@@ -286,16 +308,25 @@
         border-bottom: 1px solid #eee;
       }
       /* 첫번째 이미지 셋팅 - 비율크기 유지역할 */
-      .character-area .card-imgs img:first-child {
+      .character-area .card-img img:first-child {
         width: 100%;
         /* 싸고있는 부모박스 기준 채우기 */
       }
       /* 두번째 이미지만 앱솔루트주기 */
-      .character-card .card-imgs img:last-child {
+      .character-card .card-img img:last-child {
         position: absolute;
-        /* 부모는? .card-imgs */
+        /* 부모는? .card-img */
         left: 0;
+        top: 0;
         width: 100%;
+        /* 처음엔 투명, 오버시 보이게 */
+        opacity: 0;
+        /* 트랜지션 : 속시이지(속성 시간 이징 지연) */
+        transition: opacity 0.5s;
+      }
+      /* 카드 오버시 두번째 이미지 보이기 */
+      .character-card:hover .card-img img:last-child {
+        opacity: 1;
       }
       /* 카드 내부하단 설명박스 */
       .character-card .card-desc {
@@ -387,7 +418,7 @@
         <div class="character-list">
           <div class="character-card">
             <!-- 내부상단박스 -->
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt1.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt1_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -398,7 +429,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt2.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt2_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -408,7 +439,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt3.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt3_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -418,7 +449,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt4.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt4_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -428,7 +459,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt5.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt5_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -438,7 +469,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt6.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt6_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -448,7 +479,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt7.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt7_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -458,7 +489,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt8.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt8_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -468,7 +499,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt9.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt9_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -478,7 +509,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt10.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt10_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -488,7 +519,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt11.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt11_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -498,7 +529,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt12.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt12_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -508,7 +539,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt13.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt13_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -518,7 +549,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt14.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt14_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -528,7 +559,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt15.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt15_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -538,7 +569,7 @@
             </div>
           </div>
           <div class="character-card">
-            <div class="card-imgs">
+            <div class="card-img">
               <img src="./images/new_main_crt16.png" alt="캐릭터 메인 이미지" />
               <img src="./images/new_main_crt16_ov.png" alt="캐릭터 오버 이미지" />
             </div>
@@ -552,18 +583,46 @@
       <!-- 2-3. 컴퍼니영역 -->
       <section class="company-area">
         <!-- 컴퍼니영역 내용 -->
+          <!-- 타이틀박스 -->
+        <div class="tit-box">
+          <h2 class="part-tit">company</h2>
+          <div class="btn-box off">
+            <a href="#" class="btn-view">veiw more</a>
+          </div>
+        </div>
       </section>
       <!-- 2-4. 리쿠르트영역 -->
       <section class="recruit-area">
         <!-- 리쿠르트영역 내용 -->
+          <!-- 타이틀박스 -->
+        <div class="tit-box">
+          <h2 class="part-tit">recruit</h2>
+          <div class="btn-box off">
+            <a href="#" class="btn-view">veiw more</a>
+          </div>
+        </div>
       </section>
       <!-- 2-5. 플레이스영역 -->
       <section class="place-area">
         <!-- 플레이스영역 내용 -->
+          <!-- 타이틀박스 -->
+        <div class="tit-box">
+          <h2 class="part-tit">place</h2>
+          <div class="btn-box">
+            <a href="#" class="btn-view">veiw more</a>
+          </div>
+        </div>
       </section>
       <!-- 2-6. 컨텍어스영역 -->
       <section class="contactus-area">
         <!-- 컨텍어스영역 내용 -->
+          <!-- 타이틀박스 -->
+        <div class="tit-box">
+          <h2 class="part-tit">contact us</h2>
+          <div class="btn-box">
+            <a href="#" class="btn-view">veiw more</a>
+          </div>
+        </div>
       </section>
     </main>
     <!-- 3. 하단영역 -->
