@@ -192,7 +192,7 @@
         }
       }
 
-      /* 캐리턱영역 박스 */
+      /* 캐릭터영역 박스 */
       .character-area {
         /* 카드 4행이 모두 보이도록 높이 제한 해제 */
         min-height: 100vh;
@@ -220,13 +220,40 @@
         margin-bottom: 50px;
         /* 버튼이 사라지면 하단 마진도 사라짐! */
       }
+
       /* 버튼출력안함 클래스 */
       .btn-box.off {
         display: none;
       }
+      
+      /* 타이틀 흰색테마 클래스 */
+      .tit-box.white .part-tit {
+        color: #fff;
+      }
+      
+      /* 타이틀박스의 로고 컨트롤 */
+      .tit-box.white .logo-box {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      /* 버튼 흰색테마 클래스 */
+      .tit-box.white .btn-view {
+        color: #fff;
+        border: 1px solid #fff;
+      }
+      .tit-box.white .btn-view::after {
+        content: url(./images/ico_more2.png);
+      }
+      .tit-box.white .btn-view:hover {
+        color: #222;
+        background: #fff;
+      }
+      .tit-box.white .btn-view:hover::after {
+        content: url(./images/ico_more1.png);
+      }
 
       /* 화살표 출력안함 클래스 
-      -> 부모박스에 simple클래스를 주면
+      -> 부모박스에 simple 클래스를 주면
       자식 버튼에 가상요소 화살표가 출력안됨 */
       .btn-box.simple .btn-view::after {
         display: none;
@@ -275,7 +302,7 @@
         content: url(./images/ico_more2.png);
       }
 
-      /* 캐릭터카드 리스트: flex + wrap으로 4열 줄바꿈 */
+      /* 캐릭터카드 박스 - 4열 줄바꿈 */
       .character-list {
         max-width: 1200px;
         margin: 0 auto;
@@ -382,12 +409,33 @@
         background-color: #f5f5f5;
       }
 
-      /* 컴퍼니 카드 리스트: 가로 flex, 일정간격 */
+      /* 리쿠르트 영역 */
+      .recruit-area {
+        /* 배경:색이반고윙/크 */
+        background: url(./images/bg_recruit.png) no-repeat center 70px;
+      }
+
+      /* 플레이스 영역 */
+      .place-area {
+        /* 배경:색이반고윙/크 */
+        background: url(./images/bg_shop.jpg) no-repeat center;
+        height: 30vh;
+      }
+
+      /* 컨텍어스 영역 */
+      .contactus-area {
+        background-color: #4a679e;
+      }
+
+      /* 카드파트는 공통모듈임(컴퍼니&리쿠르트) */
+      /* 카드파트 묶음박스 - 가로 flex, 최대 1200px */
       .card-part-list {
         max-width: 1200px;
         margin: 0 auto;
         display: flex;
+        /* 가로방향 일정간격 */
         justify-content: space-between;
+        gap: 20px;
       }
 
       /* 개별카드박스 */
@@ -400,6 +448,8 @@
         align-items: center;
         /* 사이간격 */
         gap: 20px;
+        flex: 1;
+        margin: 0;
       }
 
       /* 카드타이틀 */
@@ -412,6 +462,104 @@
         /* 인라인인 span을 블록으로 변경 */
         display: block;
         font-size: 1.8rem;
+      }
+
+      /* 컨텍어스 정보박스 (지도 + 회사정보) */
+      .contact-box {
+        display: flex;
+        width: 1200px;
+        height: 350px;
+        margin: 50px auto 0;
+        background: #fff;
+        border-radius: 20px;
+        /* overflow:hidden 을 쓰면 키티자동차가 박스 밖에서 잘리므로 사용하지 않음 */
+      }
+      /* 왼쪽 지도 / 오른쪽 정보 반반 */
+      .contact-box .map-box,
+      .contact-box .info-box {
+        flex: 0 0 50%;
+        height: 100%;
+      }
+      .contact-box .map-box {
+        border-radius: 20px 0 0 20px;
+        overflow: hidden; /* 지도만 둥근 모서리에 맞춰 자름 */
+      }
+      .contact-box .map-box iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      .contact-box .info-box {
+        box-sizing: border-box;
+        padding: 0 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #222;
+        border-radius: 0 20px 20px 0;
+        /* 자식(#kitty-car) 절대위치의 기준 */
+        position: relative;
+      }
+
+      /* 키티 자동차 이미지  */
+      #kitty-car {
+        width: 207px;
+        height: 240px;
+        /* 부모(.info-box) 오른쪽 아래 기준 */
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        /* 자기 높이의 10%만큼 아래로 내림 (박스 밖으로 나와도 보임) */
+        /* transform: translate (가로이동,세로이동) */
+        transform: translateY(-23%,23%);
+        transform: -23% 23%;
+        /* 다른 방법 translate: 가로이동,세로이동 */
+      }
+      .contact-box .info-box h3 {
+        font-size: 2.4rem;
+        font-weight: bold;
+        margin-bottom: 14px;
+      }
+      .contact-box .info-box h4 {
+        font-size: 1.6rem;
+        line-height: 1.5;
+      }
+      .contact-box .info-box h4:last-of-type {
+        margin-bottom: 30px;
+      }
+      .contact-box .info-box h5 {
+        font-size: 1.5rem;
+        line-height: 1.8;
+      }
+
+      /* 하단영역 */
+      .bottom-area {
+        background-color: #222;
+        padding: 50px;
+      }
+      /* 하단속박스 */
+      .bottom-inner {
+        /* 플렉스박스 */
+        display: flex;
+        /* 진행방향정렬:사이간격 일정하게 */
+        justify-content: space-between;
+        /* 진행방향의 수직정렬: 중간  */
+        align-items: center;
+      }
+      /* 하단속박스 카피라이트 이미지 */
+      .bottom-inner img {
+        height: 13px;
+
+      }
+      /* 하단속박스 버튼 */
+      .bottom-inner .btn-view {
+        background-color: transparent;
+        color: #fff;
+        border-color: #fff;
+      }
+      .bottom-inner .btn-box {
+        margin-bottom: 0;
       }
     </style>
   </head>
@@ -835,10 +983,37 @@
       <section class="contactus-area">
         <!-- 컨텍어스영역 내용 -->
         <!-- 타이틀박스 -->
-        <div class="tit-box">
+        <div class="tit-box white">
+          <div class="logo-box">
+            <img src="./images/logo_w.png" alt="화이트로고" />
+          </div>
           <h2 class="part-tit">contact us</h2>
           <div class="btn-box">
-            <a href="#" class="btn-view">veiw more</a>
+            <a href="#" class="btn-view">veiw detail</a>
+          </div>
+        </div>
+        <!-- 지도 + 회사정보 박스 -->
+        <div class="contact-box">
+          <!-- 왼쪽 : 구글맵 -->
+          <div class="map-box">
+            <iframe
+              src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%ED%85%8C%ED%97%A4%EB%9E%80%EB%A1%9C%20509&hl=ko&z=17&output=embed"
+              title="산리오코리아 위치 지도"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <!-- 오른쪽 : 회사정보 -->
+          <div class="info-box">
+            <h3>서울시 강남구 테헤란로 509, 4층 (삼성동, 엔씨타워1)</h3>
+            <h4>509, Teheranro, Gangnam-gu, Seoul</h4>
+            <h4>(4th floor, Samsung-dong, NC Tower 1)</h4>
+            <h5>M : webmaster@sanriokorea.co.kr</h5>
+            <h5>T : +82 (0) 2 543 3810</h5>
+            <h5>F : +82 (0) 2 543 2904</h5>
+            <!-- 키티이미지 -->
+             <img id="kitty-car" src="./images/contact_img.png" alt="키티자동차">
           </div>
         </div>
       </section>
@@ -846,6 +1021,14 @@
     <!-- 3. 하단영역 -->
     <footer class="bottom-area">
       <!-- 하단영역 내용 -->
+       <div class="bottom-inner">
+        <!-- 카피라잇 이미지 -->
+          <img src="./images/copyright_2023_02_v2.png" alt="산리오카피라이트">
+          <!-- 개인정보버튼 -->
+          <div class="btn-box simple">
+            <a href="#" class="btn-view">개인정보처리방침</a>
+          </div>
+       </div>
     </footer>
   </body>
 </html>
