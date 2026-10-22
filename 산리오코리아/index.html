@@ -213,7 +213,7 @@
         font-size: 5rem;
         font-weight: normal;
       }
-      
+
       /* 타이틀박스 하위 버튼박스 */
       .btn-box {
         text-align: center;
@@ -225,11 +225,25 @@
         display: none;
       }
 
+      /* 화살표 출력안함 클래스 
+      -> 부모박스에 simple클래스를 주면
+      자식 버튼에 가상요소 화살표가 출력안됨 */
+      .btn-box.simple .btn-view::after {
+        display: none;
+      }
+
+      /* simple클래스 버튼 디자인변경 */
+      .btn-box.simple .btn-view {
+        padding: 11px 22px;
+      }
+
       /* 타이틀 아래 버튼 */
       .btn-view {
         text-decoration: none;
         color: #222;
         font-size: 1.2rem;
+        /* 대문자출력 */
+        text-transform: uppercase;
         display: inline-block;
         margin: 0 auto;
         border-radius: 24px;
@@ -238,6 +252,7 @@
         /* 트랜지션 : 속시이지(속성 시간 이징 지연) */
         transition: all 0.5s;
       }
+
       /* 버튼가상요소로 이미지 넣기 */
       /* 앞은 ::before, 뒤는 ::after */
       .btn-view::after {
@@ -245,6 +260,7 @@
         content: url(./images/ico_more1.png);
         padding-left: 20px;
       }
+
       /* 버튼 오버시 가상클래스 :hover를 사용함 */
       .btn-view:hover {
         color: #fff;
@@ -253,6 +269,7 @@
         /* :hover에 설정하면 오버시에만 애니됨 */
         /* transition: all .5s; */
       }
+
       /* 버튼오버시 가상요소 after이미지변경 */
       .btn-view:hover::after {
         content: url(./images/ico_more2.png);
@@ -267,6 +284,7 @@
         /* gap 사이간격(값을 두개쓰면 가로,세로) */
         gap: 20px;
       }
+
       /* 캐릭터카드 */
       .character-card {
         width: calc(25% - 15px);
@@ -287,11 +305,11 @@
         spread - 그림자크기(확장분만씀) color - 그림자색
         */
         box-shadow: 4px 4px 10px #00000026;
-
         /* overflow: hidden;
         display: inline-block; */
         background: #fff;
       }
+
       /* 카드 내부상단 이미지박스 */
       .character-card .card-img {
         /* 포지션을 준 이유: 자식요소중 앱솔루트 기준 */
@@ -307,11 +325,13 @@
         background: #f7f7f7;
         border-bottom: 1px solid #eee;
       }
+
       /* 첫번째 이미지 셋팅 - 비율크기 유지역할 */
       .character-area .card-img img:first-child {
         width: 100%;
         /* 싸고있는 부모박스 기준 채우기 */
       }
+
       /* 두번째 이미지만 앱솔루트주기 */
       .character-card .card-img img:last-child {
         position: absolute;
@@ -324,10 +344,12 @@
         /* 트랜지션 : 속시이지(속성 시간 이징 지연) */
         transition: opacity 0.5s;
       }
+
       /* 카드 오버시 두번째 이미지 보이기 */
       .character-card:hover .card-img img:last-child {
         opacity: 1;
       }
+
       /* 카드 내부하단 설명박스 */
       .character-card .card-desc {
         /* height: 81px; */
@@ -342,15 +364,54 @@
         align-items: center;
         gap: 5px;
       }
+
       /* 한글타이틀 */
       .character-card .card-desc h3 {
         font-size: 2.4rem;
         color: #444;
       }
+
       /* 영어타이틀 */
       .character-card .card-desc h4 {
         font-size: 1.2rem;
         color: #ccc;
+      }
+
+      /* 컴퍼니 영역 */
+      .company-area {
+        background-color: #f5f5f5;
+      }
+
+      /* 컴퍼니 카드 리스트: 가로 flex, 일정간격 */
+      .card-part-list {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* 개별카드박스 */
+      .card-part {
+        /* 플렉스 박스 */
+        display: flex;
+        /* 플렉스 방향(수직) */
+        flex-direction: column;
+        /* 진행방향의 직각방향 정렬 */
+        align-items: center;
+        /* 사이간격 */
+        gap: 20px;
+      }
+
+      /* 카드타이틀 */
+      .card-title {
+        font-size: 2.5rem;
+      }
+
+      /* 카드설명 span */
+      .card-desc span {
+        /* 인라인인 span을 블록으로 변경 */
+        display: block;
+        font-size: 1.8rem;
       }
     </style>
   </head>
@@ -420,7 +481,10 @@
             <!-- 내부상단박스 -->
             <div class="card-img">
               <img src="./images/new_main_crt1.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt1_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt1_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <!-- 내부하단박스 -->
             <div class="card-desc">
@@ -431,7 +495,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt2.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt2_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt2_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>마이멜로디</h3>
@@ -441,7 +508,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt3.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt3_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt3_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>쿠로미</h3>
@@ -451,7 +521,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt4.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt4_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt4_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>폼폼푸린</h3>
@@ -461,7 +534,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt5.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt5_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt5_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>시나모롤</h3>
@@ -471,7 +547,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt6.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt6_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt6_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>리틀트윈스타</h3>
@@ -481,7 +560,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt7.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt7_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt7_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>포차코</h3>
@@ -491,7 +573,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt8.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt8_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt8_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>케로케로케로피</h3>
@@ -501,7 +586,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt9.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt9_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt9_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>구데타마</h3>
@@ -511,7 +599,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt10.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt10_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt10_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>배드바츠마루</h3>
@@ -521,7 +612,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt11.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt11_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt11_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>턱시도샘</h3>
@@ -531,7 +625,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt12.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt12_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt12_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>코기뮹</h3>
@@ -541,7 +638,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt13.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt13_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt13_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>딩구리데이즈</h3>
@@ -551,7 +651,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt14.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt14_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt14_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>숲의요정 페어리루</h3>
@@ -561,7 +664,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt15.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt15_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt15_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>어그레츠코</h3>
@@ -571,7 +677,10 @@
           <div class="character-card">
             <div class="card-img">
               <img src="./images/new_main_crt16.png" alt="캐릭터 메인 이미지" />
-              <img src="./images/new_main_crt16_ov.png" alt="캐릭터 오버 이미지" />
+              <img
+                src="./images/new_main_crt16_ov.png"
+                alt="캐릭터 오버 이미지"
+              />
             </div>
             <div class="card-desc">
               <h3>꿈속의 뮤</h3>
@@ -583,29 +692,138 @@
       <!-- 2-3. 컴퍼니영역 -->
       <section class="company-area">
         <!-- 컴퍼니영역 내용 -->
-          <!-- 타이틀박스 -->
+        <!-- 타이틀박스 -->
         <div class="tit-box">
           <h2 class="part-tit">company</h2>
           <div class="btn-box off">
             <a href="#" class="btn-view">veiw more</a>
           </div>
         </div>
+        <!-- 카드섹션파트 -->
+        <div class="card-part-list">
+          <figure class="card-part">
+            <!-- 이미지박스 -->
+            <div class="img-box">
+              <img src="./images/ico_company1.png" alt="회사아이콘" />
+            </div>
+            <!-- 타이틀 -->
+            <h3 class="card-title">회사소개</h3>
+            <!-- 내용 -->
+            <p class="card-desc">
+              <span>맑고 깨끗한 강가에</span>
+              <span>문화를 쌓아 올리자.</span>
+            </p>
+            <!-- 버튼박스 -->
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+          <figure class="card-part">
+            <!-- 이미지박스 -->
+            <div class="img-box">
+              <img src="./images/ico_company3.png" alt="회사아이콘" />
+            </div>
+            <!-- 타이틀 -->
+            <h3 class="card-title">회사연혁</h3>
+            <!-- 내용 -->
+            <p class="card-desc">
+              <span>산리오의 히스토리를</span>
+              <span>확인하세요.</span>
+            </p>
+            <!-- 버튼박스 -->
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+          <figure class="card-part">
+            <!-- 이미지박스 -->
+            <div class="img-box">
+              <img src="./images/ico_company4.png" alt="회사아이콘" />
+            </div>
+            <!-- 타이틀 -->
+            <h3 class="card-title">사업영역</h3>
+            <!-- 내용 -->
+            <p class="card-desc">
+              <span>소셜 커뮤니케이션을</span>
+              <span>산리오가 시작합니다.</span>
+            </p>
+            <!-- 버튼박스 -->
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+        </div>
       </section>
+      <!-- simple클래스 버튼 디자인변경 -->
       <!-- 2-4. 리쿠르트영역 -->
       <section class="recruit-area">
         <!-- 리쿠르트영역 내용 -->
-          <!-- 타이틀박스 -->
+        <!-- 타이틀박스 -->
         <div class="tit-box">
           <h2 class="part-tit">recruit</h2>
           <div class="btn-box off">
             <a href="#" class="btn-view">veiw more</a>
           </div>
         </div>
+        <!-- 카드섹션파트 -->
+        <div class="card-part-list">
+          <figure class="card-part">
+            <!-- 이미지박스 -->
+            <div class="img-box">
+              <img src="./images/ico_recruit1.png" alt="채용아이콘" />
+            </div>
+            <!-- 타이틀 -->
+            <h3 class="card-title">채용공고</h3>
+            <!-- 내용 -->
+            <p class="card-desc">
+              <span>산리오코리아에서</span>
+              <span>인재를 찾습니다</span>
+            </p>
+            <!-- 버튼박스 -->
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+          <figure class="card-part">
+            <!-- 이미지박스 -->
+            <div class="img-box">
+              <img src="./images/ico_recruit2.png" alt="채용아이콘" />
+            </div>
+            <!-- 타이틀 -->
+            <h3 class="card-title">직무소개</h3>
+            <!-- 내용 -->
+            <p class="card-desc">
+              <span>산리오코리아에서는</span>
+              <span>어떤 일을 할까요?</span>
+            </p>
+            <!-- 버튼박스 -->
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+          <figure class="card-part">
+            <!-- 이미지박스 -->
+            <div class="img-box">
+              <img src="./images/ico_recruit3.png" alt="채용아이콘" />
+            </div>
+            <!-- 타이틀 -->
+            <h3 class="card-title">복리후생</h3>
+            <!-- 내용 -->
+            <p class="card-desc">
+              <span>산리오코리아에서</span>
+              <span>누릴 수 있는것!</span>
+            </p>
+            <!-- 버튼박스 -->
+            <div class="btn-box simple">
+              <a href="#" class="btn-view">more</a>
+            </div>
+          </figure>
+        </div>
       </section>
       <!-- 2-5. 플레이스영역 -->
       <section class="place-area">
         <!-- 플레이스영역 내용 -->
-          <!-- 타이틀박스 -->
+        <!-- 타이틀박스 -->
         <div class="tit-box">
           <h2 class="part-tit">place</h2>
           <div class="btn-box">
@@ -616,7 +834,7 @@
       <!-- 2-6. 컨텍어스영역 -->
       <section class="contactus-area">
         <!-- 컨텍어스영역 내용 -->
-          <!-- 타이틀박스 -->
+        <!-- 타이틀박스 -->
         <div class="tit-box">
           <h2 class="part-tit">contact us</h2>
           <div class="btn-box">
