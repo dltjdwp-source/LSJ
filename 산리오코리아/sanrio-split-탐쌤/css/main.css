@@ -1,4 +1,8 @@
-/* main.css : 메인 페이지 전용 영역(배너·캐릭터·컴퍼니·리쿠르트·플레이스·컨택트) 스타일 */
+/* =====================================================
+   main.css : 메인 페이지 전용 스타일
+   배너 / 캐릭터 / 컴퍼니 / 리쿠르트 / 플레이스 / 컨택트
+   (공통 규칙은 common.css 에 있다. 반드시 common.css 다음에 불러온다.)
+   ===================================================== */
 
 /* 배너영역 스타일 */
 .banner-area {
@@ -355,19 +359,17 @@
 
 /* ---------- 1199px 이하 ---------- */
 @media screen and (max-width: 1199px) {
+  /* 1. 공통 컨테이너: 고정 너비 → 가로 꽉 참 + 좌우 14px 여백 */
   .character-card-box,
-  .card-part-box,
-  .contact-box {
+  .card-part-box {
     box-sizing: border-box;
-    max-width: none;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 14px;
+    padding-right: 14px;
   }
-
-  /* 배너: 좌우 여백 없음 */
-  .banner-area {
-    padding-left: 0;
-    padding-right: 0;
+  /* contact-box는 흰 배경이 있어 padding이 아닌 margin으로 바깥 여백 20px */
+  .contact-box {
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }
 /* 1199px 이하 미디어쿼리 종료 */
@@ -381,18 +383,18 @@
     z-index: 50;
   }
 
-  /* 4. 메인 비주얼: 좌우 여백 없음
+  /* 4. 메인 비주얼: 좌우 여백 30px
      (PC/모바일 슬로건 이미지 교체는 파일이 없어 적용 보류 - 설명 참고) */
   .banner-area {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
-  /* 9. recruit: 좌우 여백 없음 (배경은 태블릿용 이미지로 교체 가능)
+  /* 9. recruit: 좌우 여백 9% (배경은 태블릿용 이미지로 교체 가능)
      background-image: url(../images/bg_recruit_tablet.png); */
   .main-area > section.recruit-area {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 9%;
+    padding-right: 9%;
   }
 
   /* 10. place: 배경 태블릿용 교체 자리
@@ -539,10 +541,10 @@
     height: 34px;
   }
 
-  /* 4. 메인 비주얼: 좌우 여백 없음, 스크롤 버튼 하단 20px */
+  /* 4. 메인 비주얼: 좌우 여백 20px, 스크롤 버튼 하단 20px */
   .banner-area {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .scroll_btn {
     bottom: 20px;
@@ -567,6 +569,16 @@
   }
   .company-area .img-box img {
     width: 35%;
+  }
+  /* 마지막 박스는 한 줄 전체(100%)라 이미지가 커지므로
+     img-box를 50%로 줄여 다른 아이콘과 같은 크기로 맞춤 */
+  .company-area .card-part:last-child:nth-child(odd) .img-box {
+    width: 50%;
+  }
+
+  /* recruit: 설명 글자 숨김 */
+  .recruit-area .card-desc {
+    display: none;
   }
 
   /* 9. recruit: 아이콘 52% / 텍스트 48%, 더보기 버튼 최대 80px */
