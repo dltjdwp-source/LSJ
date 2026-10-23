@@ -678,18 +678,9 @@
           font-size: 42px; /* 2.625rem */
           transform: translateX(100%);
           visibility: hidden;
-          /* 트랜지션을 처음부터 주면 메뉴변경시 화면한번 보이므로 
-          처음엔 트랜지션을 주지 않는다.*/
-          /* transition:
+          transition:
             transform 0.4s ease,
-            visibility 0s linear 0.4s; */
-        }
-
-        /* 모바일용 메뉴를 위한 클래스 지정 : 트랜지션 넣기
-        -> mob클래스를 자바스크립트에서 작동시 넣어주면된다! */
-        .menu-list.on { /* 트랜지션 보이게 설정  */
-          translate: 0;
-          opacity: 1;
+            visibility 0s linear 0.4s;
         }
         .menu-toggle:checked ~ .menu-list {
           transform: translateX(0);
@@ -999,14 +990,27 @@
         .company-area .img-box img {
           width: 35%;
         }
-        /* recruit: 아이콘 52% / 텍스트 48%, 더보기 버튼 최대 80px */
+        /* recruit: 모바일에서는 이미지 아래로 타이틀 / 내용 / 버튼을
+           세로로 쌓고 모두 가운데 정렬 (company와 동일한 형태) */
         .recruit-area .card-part {
-          grid-template-columns: 52% 48%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 20px;
+        }
+        .recruit-area .img-box {
+          text-align: center;
+        }
+        .recruit-area .btn-box {
+          margin: 0;
+          text-align: center;
         }
         .recruit-area .btn-view {
           display: block;
           box-sizing: border-box;
           max-width: 80px;
+          margin: 0 auto;
           padding: 8px 0;
           text-align: center;
         }
@@ -1052,7 +1056,7 @@
           <img src="./images/logo_2023.png" alt="산리오코리아 로고" />
         </h1>
         <!-- 메뉴리스트 (오른쪽 끝) -->
-        <nav class="mob">
+        <nav>
           <!-- 햄버거 토글 (1199px 이하에서만 보임, CSS만으로 열고 닫기) -->
           <input
             type="checkbox"
