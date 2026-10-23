@@ -687,10 +687,9 @@
 
         /* 모바일용 메뉴를 위한 클래스 지정 : 트랜지션 넣기
         -> mob클래스를 자바스크립트에서 작동시 넣어주면된다! */
-        .menu-list {
-          transition:
-            transform 0.4s ease,
-            visibility 0s linear 0.4s;
+        .menu-list.on { /* 트랜지션 보이게 설정  */
+          translate: 0;
+          opacity: 1;
         }
         .menu-toggle:checked ~ .menu-list {
           transform: translateX(0);

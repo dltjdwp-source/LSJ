@@ -628,14 +628,14 @@
           transform: translateY(-100%);
         }
         /* 열림 상태: X 모양 */
-        .menu-open .menu-btn span:nth-child(1) {
+        .top-area.on .menu-btn span:nth-child(1) {
           top: 50%;
           transform: translateY(-50%) rotate(45deg);
         }
-        .menu-open .menu-btn span:nth-child(2) {
+        .top-area.on .menu-btn span:nth-child(2) {
           opacity: 0;
         }
-        .menu-open .menu-btn span:nth-child(3) {
+        .top-area.on .menu-btn span:nth-child(3) {
           top: 50%;
           transform: translateY(-50%) rotate(-45deg);
         }
@@ -654,8 +654,16 @@
           align-items: center;
           justify-content: center;
           z-index: 1;
-          transform: translateX(100%);
-          visibility: hidden;
+          /* 변경내용 : 위치이동, 투명도 */
+          translate: 100%;
+          opacity: 0;
+          transition: .4s;
+          /* translate속성값은 하나만 쓰면 x축, 두개 x,y축 */
+          /* transform: translateX(100%); */
+          /* visibility와 opacity 투명도0의 차이는
+          투명해진 후 이벤트 적용여부다.
+          opacity:0은 이벤트가 적용되고 visibility:hidden은 이벤트 적용 안됨. */
+          /* visibility: hidden; */
           /* 트랜지션을 처음부터 주면 메뉴변경시 화면한번 보이므로 
           처음엔 트랜지션을 주지 않는다.*/
           /* transition:
@@ -664,18 +672,18 @@
         } 
         /* 모바일용 메뉴를 위한 클래스 지정 : 트랜지션 넣기
         -> mob클래스를 자바스크립트에서 작동시 넣어주면된다! */
-        .top-area nav.mob {
-          transition:
-            transform 0.4s ease,
-            visibility 0s 0.4s;
+        .top-area.on nav { /* 트랜지션 보이게 설정  */
+          translate: 0;
+          opacity: 1;
         }
+        /* 필요없음
         .menu-open .top-area nav {
           transform: translateX(0);
           visibility: visible;
           transition:
             transform 0.4s ease,
             visibility 0s;
-        }
+        } */
         body.menu-open {
           overflow: hidden; /* 메뉴 열린 동안 배경 스크롤 방지 */
         }
@@ -1418,6 +1426,8 @@
       </div>
     </footer>
     <script>
+
+
       // 자바스크립트 시작
       console.log('안녕!');
 
@@ -1486,6 +1496,17 @@
       }; ///// onclick 함수 /////
 
 
+
+      ////////////// 햄버거버튼 클릭시 메뉴 보이기.숨기기 /////////////////
+      // 1. 대상선정
+      // 1-1. 이벤트 대상 : 햄버거버튼(.menu-btn)
+      let 햄버거 = document.querySelector('.menu-btn');
+
+      // 1-2. 변경대상 : 상단영역(.top-area)
+      let 상단박스 = document.querySelector('.top-area');
+
+
+      console.log ('선택확인:',햄버거,상단박스);
 
 
 
