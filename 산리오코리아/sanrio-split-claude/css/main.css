@@ -578,6 +578,7 @@
   /* SNS: 화면 너비 기준(20vw) 위치, 아이콘 34px */
   .sns {
     top: 20vw;
+    display: none;
   }
   .sns img {
     width: 34px;
