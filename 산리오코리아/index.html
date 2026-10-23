@@ -728,6 +728,8 @@
         .banner-area {
           padding-left: 30px;
           padding-right: 30px;
+          /* 배경 타일은 모든 폭에서 유지 (명시적으로 다시 지정) */
+          background: url("./images/main_visual_bg.jpg") repeat 0 0/50px;
         }
         .banner-area .main-visual-img {
           display: none;
@@ -744,9 +746,39 @@
           margin: 0 9%;
           padding: 0;
         }
-        /* place: 태블릿 배경 */
+        /* place: 태블릿 배경
+           - 여러 겹 배경: 앞 이미지가 없거나 로딩 실패하면 뒤(PC 이미지)가 대신 보임
+           - cover로 영역을 꽉 채움
+           - height 고정 대신 min-height (내용이 많아도 배경이 잘리지 않게) */
         .place-area {
-          background: url(./images/bg_shop_tablet.jpg) no-repeat center;
+          background:
+            url(./images/bg_shop_tablet.jpg) no-repeat center / cover,
+            url(./images/bg_shop.jpg) no-repeat center / cover;
+          height: auto;
+          min-height: 30vh;
+        }
+
+        /* company: 3열 grid + subgrid
+           -> 아이콘 크기가 달라도 아이콘/제목/설명/버튼이
+              카드끼리 같은 가로줄에 정렬됨 */
+        .company-area .card-part-list {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 20px;
+          row-gap: 0;
+        }
+        .company-area .card-part {
+          display: grid;
+          grid-row: span 4; /* img-box / 제목 / 설명 / 버튼 = 4줄 */
+          grid-template-rows: subgrid;
+          justify-items: center;
+          align-items: start;
+        }
+        .company-area .img-box {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          align-self: center;
         }
         /* contact: 아래 여백 150px, 스티커 위치 */
         .main-area > section.contactus-area {
@@ -798,14 +830,18 @@
           aspect-ratio: auto;
         }
 
-        /* company: 2열 배치, 윗줄 아래 회색선 + 5% 여백 */
+        /* company: 2열 배치, 윗줄 아래 회색선 + 5% 여백
+           (grid + subgrid 유지 → 윗줄 두 카드의 가로줄이 맞음,
+            3번째 카드는 아랫줄 가운데) */
         .company-area .card-part-list {
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 0 20px;
+          grid-template-columns: repeat(2, 1fr);
+          column-gap: 20px;
+          row-gap: 0;
         }
-        .company-area .card-part {
-          flex: 0 0 calc(50% - 10px);
+        .company-area .card-part:nth-child(3) {
+          grid-column: 1 / -1;
+          justify-self: center;
+          width: calc(50% - 10px);
         }
         .company-area .card-part:nth-child(-n + 2) {
           padding-bottom: 5%;
@@ -850,9 +886,13 @@
           text-align: left;
         }
 
-        /* place: 모바일 배경(cover) */
+        /* place: 모바일 배경(cover)
+           모바일 이미지 -> 태블릿 이미지 -> PC 이미지 순으로 대체 */
         .place-area {
-          background: url(./images/bg_shop_mobile.jpg) no-repeat center / cover;
+          background:
+            url(./images/bg_shop_mobile.jpg) no-repeat center / cover,
+            url(./images/bg_shop_tablet.jpg) no-repeat center / cover,
+            url(./images/bg_shop.jpg) no-repeat center / cover;
         }
 
         /* contact: 지도(위, 280px) + 정보(아래) 세로 배치 */
@@ -940,8 +980,8 @@
         .company-area .card-part-list {
           column-gap: 0;
         }
-        .company-area .card-part {
-          flex: 0 0 50%;
+        .company-area .card-part:nth-child(3) {
+          width: 50%;
         }
         .company-area .img-box {
           width: 100%;
@@ -1045,6 +1085,7 @@
             src="./images/main_visual_mobile_v1.png"
             alt="메인 비주얼"
             class="main-visual-mobile"
+            onerror="this.onerror=null; this.src='./images/main_visual_pc_v1.png';"
           />
         </div>
 
