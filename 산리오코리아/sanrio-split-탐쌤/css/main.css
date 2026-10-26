@@ -25,6 +25,27 @@
   /* display: block; */
   width: 984px;
   max-width: 100%;
+  /* 로딩 애니메이션 호출 : (이시이지반방마)
+  이름 시간 이징 지연시간 반복 방향 마지막상태
+  - 1s 지연 후 1s 동안 실행
+  - both : 지연 중에는 시작상태(투명, 위로 20%) 유지, 끝나면 끝상태 유지 */
+  animation: visual-down 0.5s ease-out 0.5s 0.5 normal both;
+}
+/* 모바일용 이미지는 PC에서 숨김 */
+.banner-area .main-visual-mo {
+  display: none;
+}
+/* 메인 비주얼 등장 애니메이션 키프레임
+   처음: 투명 + 자기 높이의 20%만큼 위 → 끝: 원래 위치 + 보임 */
+@keyframes visual-down {
+  from {
+    opacity: 0;
+    translate: 0 -20%;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 /* SNS 버튼 박스 스타일 */
@@ -534,6 +555,8 @@
 @media screen and (max-width: 736px) {
   /* 3. SNS: 화면 너비 기준 위치, 아이콘 34px */
   .sns {
+    /* 모바일에서는 안보임 */
+    display: none;
     top: 20vw;
   }
   .sns img {
@@ -548,6 +571,13 @@
   }
   .scroll_btn {
     bottom: 20px;
+  }
+  /* 메인 비주얼 이미지 교체 : PC용 숨김, 모바일용 표시 */
+  .banner-area .main-visual-pc {
+    display: none;
+  }
+  .banner-area .main-visual-mo {
+    display: inline;
   }
 
   /* 6. character: 이름 영역 높이 축소 */
