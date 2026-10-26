@@ -262,8 +262,10 @@
 
 /* 플레이스 영역 */
 .place-area {
-  /* 배경:색이반고윙/크 */
-  background: url(../images/bg_shop.jpg) no-repeat center;
+  /* 배경이미지는 제거 -> 아래 .place-slide 3개가 각각 배경을 가짐 */
+  /* 슬라이드(absolute)의 기준 + 넘치는 부분 숨김 */
+  position: relative;
+  overflow: hidden;
   /* height: 30vh; */
   /* aspect-ratio 속성 비율은 가로/세로 -> 높이값 없이 비율로 유지
   비율값은 이미지 가로,세로 값을 써도 된다.
@@ -278,7 +280,74 @@
   /* 더 강한 패딩설정이 덮어쓰므로 !important로 가장 강하게 우선순위를 높여줌
   (주의: !important남발은 하지말것! */
   padding: 3vw !important;
-  /* vw단위는 뷰포트 단위로 보이는 화면 가로크기기준 %크기임. */
+  /* vw단위는 뷰포트 단위로 보이는 화면 가로크기 기준 %크기임. */
+}
+
+/* ---------- 플레이스 슬라이드 ---------- */
+/* 슬라이드 영역 : place-area 와 정확히 같은 크기, 맨 아래층(z-index:0) */
+.place-slider {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+/* 어두운 막(오버레이) : 어떤 이미지가 와도 글자/버튼이 잘 보이게 */
+.place-slider::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+}
+/* 3개의 박스를 가로 flex로 나란히 담는 트랙 (JS가 translateX로 이동) */
+.place-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+/* 개별 박스 : 슬라이더(=place-area)와 정확히 같은 크기 */
+.place-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.place-slide.slide1 {
+  background-image: url(../images/bg_shop.jpg);
+}
+.place-slide.slide2 {
+  background-image: url(../images/bg_shop2.jpg);
+}
+.place-slide.slide3 {
+  background-image: url(../images/bg_shop3.jpg);
+}
+/* 타이틀박스(타이틀+버튼)는 슬라이드보다 위층 */
+.place-area > .tit-box {
+  position: relative;
+  z-index: 2;
+}
+/* 타이틀/버튼 가독성 : 흰 글자 + 그림자 */
+.place-area .part-tit {
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+.place-area .btn-view {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+/* 처음부터 흰색 이미지로 나오게함! */
+.place-area .btn-view::after {
+  content: url(../images/ico_more2.png);
+  padding-left: 20px;
 }
 
 /* 컨텍어스 영역 */
@@ -534,11 +603,7 @@
     margin-bottom: 0;
   }
 
-  /* 10. place: 모바일용 배경(cover) */
-  .place-area {
-    background-size: cover;
-    /* background-image: url(../images/bg_shop_mobile.jpg); */
-  }
+  /* 10. place: 배경은 .place-slide 가 cover 로 처리하므로 별도 설정 불필요 */
 
   /* 11. contact us: 지도 상단 + 정보 하단 세로 배치, 지도 280px, 위쪽 모서리 20px */
   .contact-box {
