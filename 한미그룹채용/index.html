@@ -10,6 +10,16 @@
     /* =========================================================
        Design Tokens
        ========================================================= */
+    /* CSS변수구역 */
+    /* :root{변수코드}
+      1. 변수설정방법
+       --변수명: 값;
+       변수명은 케밥케이스로 주로 씀
+       (케밥케이스? 마이너스 기호로 연결된 변수법)
+      2. 변수호출방법
+       var(변수명)
+       쓰고 싶은 곳에 값으로 변수를 사용함
+    */
     :root {
       --color-black: #000000;
       --color-white: #FFFFFF;
@@ -307,7 +317,7 @@
 
     /* =========================================================
        Mobile Menu (햄버거 버튼 + 전체 메뉴 패널) - 기본은 숨김
-       390px 이하에서만 표시됩니다.
+       767px 이하에서만 표시됩니다.
        ========================================================= */
     .hamburger { display: none; }
     .mnav { display: none; }
@@ -407,9 +417,9 @@
     }
 
     /* =========================================================
-       Responsive 3 : 모바일 (390px 이하) - 태블릿 스타일 위에 덮어쓰기
+       Responsive 3 : 모바일 (767px 이하) - 태블릿 스타일 위에 덮어쓰기
        ========================================================= */
-    @media (max-width: 390px) {
+    @media (max-width: 767px) {
       :root { --header-h: 64px; }
 
       /* Header : 로고 + 지원하기(작게) + 햄버거 */
@@ -530,6 +540,83 @@
       }
     }
 
+
+    /* =========================================================
+       Section : 새로운 미래 (.mirae) - mv 섹션 바로 다음
+       - 시안(데스크탑 997 / 태블릿 881 / 모바일 758 기준)의 좌표를 --ms 배율로 환산
+       - 각 요소는 --x(좌), --y(상), --w(너비) 만 바꿔서 해상도별 배치를 조정
+       ========================================================= */
+    .mirae {
+      --ms: calc(min(100vw, 1440px) / 997);   /* 시안 1px 이 실제 몇 px 인지 */
+      --cx: 498.5;                             /* 시안 가로 중앙 */
+      position: relative;
+      overflow: hidden;
+      height: calc(658 * var(--ms));
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFE7E1 100%);
+    }
+
+    .mirae__title {
+      --ty: 170;
+      position: absolute; z-index: 4;
+      left: 50%; top: calc(var(--ty) * var(--ms));
+      transform: translate(-50%, -50%);
+      width: max-content; max-width: 100%;
+      margin: 0;
+      font-size: calc(44 * var(--ms)); line-height: 1.3;
+      font-weight: 800; letter-spacing: -0.02em;
+      white-space: nowrap; text-align: center;
+      background: linear-gradient(90deg, var(--color-red) 0%, var(--color-orange) 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+    }
+
+    .mirae__deco {
+      position: absolute; display: block;
+      left: calc(50% + (var(--x) - var(--cx)) * var(--ms));
+      top: calc(var(--y) * var(--ms));
+      width: calc(var(--w) * var(--ms)); height: auto; max-width: none;
+      pointer-events: none; user-select: none;
+    }
+    .mirae__cloud       { z-index: 1; }
+    .mirae__cloud--l    { left: 0; }                 /* 화면 왼쪽 끝에 붙는 구름 */
+    .mirae__cloud--r    { left: auto; right: 0; }    /* 화면 오른쪽 끝에 붙는 구름 */
+    .mirae__cloud--blur1 { --x: 41;  --y: 130; --w: 289; }
+    .mirae__cloud--blur2 { --x: 724; --y: 426; --w: 113; }
+    .mirae__cloud--l     { --y: 352; --w: 143; }
+    .mirae__cloud--r     { --y: 180; --w: 238; }
+    .mirae__walking      { z-index: 2; --x: 1.5;  --y: 114; --w: 995; }
+    .mirae__star         { z-index: 3; }
+    .mirae__star--1      { --x: 566; --y: 248; --w: 26; }
+    .mirae__star--2      { --x: 373; --y: 466; --w: 42; }
+
+    /* 태블릿 (1024px 이하) : 시안 881px 기준, "새로운 미래" 만 빨강 / 나머지 검정 */
+    @media (max-width: 1024px) {
+      .mirae { --ms: calc(100vw / 881); --cx: 440.5; height: calc(601 * var(--ms)); }
+      .mirae__title { --ty: 144; font-size: calc(33 * var(--ms)); background: none; color: var(--color-black); }
+      .mirae__title-em { color: var(--color-red); }
+      .mirae__cloud--blur1 { --x: 134.5; --y: 241; --w: 186; }
+      .mirae__cloud--blur2 { --x: 590;   --y: 445; --w: 75; }
+      .mirae__cloud--l     { --y: 397; --w: 92; }
+      .mirae__cloud--r     { --y: 283; --w: 154; }
+      .mirae__walking      { --x: 112; --y: 238; --w: 662; }
+      .mirae__star--1      { --x: 485; --y: 326; --w: 18; }
+      .mirae__star--2      { --x: 356; --y: 470; --w: 30; }
+    }
+
+    /* 모바일 (767px 이하) : 시안 758px 기준, 제목 전체 그라데이션 복원 */
+    @media (max-width: 767px) {
+      .mirae { --ms: calc(100vw / 758); --cx: 379; height: calc(823 * var(--ms)); }
+      .mirae__title { --ty: 154; font-size: calc(51 * var(--ms)); background: linear-gradient(90deg, var(--color-red) 0%, var(--color-orange) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .mirae__title-em { color: inherit; }
+      .mirae__cloud--blur1 { --x: 53;  --y: 226; --w: 259; }
+      .mirae__cloud--blur2 { --x: 596; --y: 541; --w: 122; }
+      .mirae__cloud--l     { --y: 428; --w: 173; }
+      .mirae__cloud--r     { --y: 233; --w: 275; }
+      .mirae__walking      { --x: -30; --y: 358; --w: 835; }
+      .mirae__star--1      { --x: 441; --y: 459; --w: 22; }
+      .mirae__star--2      { --x: 278; --y: 643; --w: 35; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .mnav, .mnav__overlay, .mnav__panel { transition: none !important; }
     }
@@ -560,7 +647,7 @@
         </ul>
       </nav>
 
-      <!-- 모바일 햄버거 버튼 (390px 이하에서만 표시) -->
+      <!-- 모바일 햄버거 버튼 (767px 이하에서만 표시) -->
       <button class="hamburger" type="button" aria-label="전체 메뉴 열기" aria-expanded="false" aria-controls="mobile-menu" aria-haspopup="dialog">
         <svg viewBox="0 0 20 15" fill="none" aria-hidden="true">
           <path d="M0 1h20M0 7.5h20M0 14h20" stroke="currentColor" stroke-width="1.6"/>
@@ -612,12 +699,30 @@
 
       </div>
     </section>
+
+    <!-- 새로운 미래 섹션 : 이미지는 ./images/mirae_*.png (장식용) -->
+    <section class="mirae" id="mirae" aria-labelledby="mirae-title">
+      <h2 class="mirae__title" id="mirae-title"><span class="mirae__title-em">새로운 미래</span>를 향해 나아갑니다</h2>
+
+      <!-- 구름 (블러 2개 + 좌우 끝 2개) -->
+      <img class="mirae__deco mirae__cloud mirae__cloud--blur1" src="./images/mirae_cloud3.png" alt="" aria-hidden="true" width="866" height="460" loading="lazy">
+      <img class="mirae__deco mirae__cloud mirae__cloud--blur2" src="./images/mirae_cloud4.png" alt="" aria-hidden="true" width="378" height="200" loading="lazy">
+      <img class="mirae__deco mirae__cloud mirae__cloud--l"     src="./images/mirae_cloud1.png" alt="" aria-hidden="true" width="422" height="320" loading="lazy">
+      <img class="mirae__deco mirae__cloud mirae__cloud--r"     src="./images/mirae_cloud2.png" alt="" aria-hidden="true" width="700" height="520" loading="lazy">
+
+      <!-- 산 위를 걷는 캐릭터 -->
+      <img class="mirae__deco mirae__walking" src="./images/mirae_walking.png" alt="" aria-hidden="true" width="2880" height="1770" loading="lazy">
+
+      <!-- 별 -->
+      <img class="mirae__deco mirae__star mirae__star--1" src="./images/mirae_star1.png" alt="" aria-hidden="true" width="40" height="42" loading="lazy">
+      <img class="mirae__deco mirae__star mirae__star--2" src="./images/mirae_star2.png" alt="" aria-hidden="true" width="125" height="126" loading="lazy">
+    </section>
   </main>
 
   <!-- ================= Footer (시안 없음) ================= -->
   <footer></footer>
 
-  <!-- ================= Mobile Menu (390px 이하) ================= -->
+  <!-- ================= Mobile Menu (767px 이하) ================= -->
   <div class="mnav" id="mobile-menu">
     <div class="mnav__overlay" data-mnav-close></div>
     <div class="mnav__panel" role="dialog" aria-modal="true" aria-label="전체 메뉴">
@@ -665,7 +770,7 @@
       }
     })();
 
-    // 모바일 전체 메뉴 (390px 이하): 열기/닫기, 오버레이·Escape·링크 클릭, 포커스 처리
+    // 모바일 전체 메뉴 (767px 이하): 열기/닫기, 오버레이·Escape·링크 클릭, 포커스 처리
     (function () {
       'use strict';
 
@@ -677,7 +782,7 @@
       var closeBtn = menu.querySelector('.mnav__close');
       var overlay = menu.querySelector('.mnav__overlay');
       var backgrounds = document.querySelectorAll('header, main, footer');
-      var mq = window.matchMedia('(max-width: 390px)');
+      var mq = window.matchMedia('(max-width: 767px)');
       var root = document.documentElement;
 
       function isOpen() { return menu.classList.contains('is-open'); }
@@ -742,7 +847,7 @@
         }
       });
 
-      // 화면이 391px 이상으로 넓어지면 열린 메뉴 정리
+      // 화면이 768px 이상으로 넓어지면 열린 메뉴 정리
       function onViewportChange() { if (!mq.matches) closeMenu(false); }
       if (mq.addEventListener) mq.addEventListener('change', onViewportChange);
       else if (mq.addListener) mq.addListener(onViewportChange);
