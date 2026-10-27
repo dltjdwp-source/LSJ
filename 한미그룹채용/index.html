@@ -56,14 +56,12 @@
     }
 
     /* =========================================================
-       Common : Page wrapper / Inner container
+       Common : Layout (main 1920px / inner 1440px)
        ========================================================= */
-    .page {
-      position: relative;
+    main {
       width: 100%;
       max-width: var(--page-max);
       margin: 0 auto;
-      overflow: hidden;
     }
     .inner {
       position: relative;
@@ -136,13 +134,13 @@
     /* =========================================================
        Header
        ========================================================= */
-    .header {
+    header {
       position: absolute;
       top: 0; left: 0; right: 0;
       z-index: 10;
       height: var(--header-h);
     }
-    .header .inner {
+    header .inner {
       height: 100%;
       padding: 0 60px;
       display: flex;
@@ -153,7 +151,7 @@
     .logo img { width: 182px; height: 31px; }
 
     .gnb { display: flex; align-items: center; height: 100%; }
-    .gnb__list { display: flex; gap: 40px; height: 100%; }
+    .gnb__list { display: flex; align-items: center; gap: 40px; height: 100%; }
     .gnb__item { display: flex; align-items: center; height: 100%; }
     .gnb__link {
       font-size: 19.1px;
@@ -165,10 +163,9 @@
     }
     .gnb__link:hover,
     .gnb__link:focus-visible { color: var(--color-red); }
-    .gnb__cta { padding-left: 40px; }
 
     /* =========================================================
-       Main Visual
+       Main Visual (section)
        ========================================================= */
     .mv {
       position: relative;
@@ -223,7 +220,7 @@
       white-space: nowrap;
     }
 
-    /* ---- 비주얼 영역 (원형 + 캐릭터 레이어) ---- */
+    /* ---- 비주얼 영역 (원형 + 캐릭터 + 별) ---- */
     .mv__visual {
       position: absolute;
       inset: 0;
@@ -232,19 +229,26 @@
     }
     .mv__visual > * { position: absolute; }
 
-    .mv__ring--blur {
+    /* 원형 링 : 별도 요소 없이 가상요소로 구현 (캐릭터 뒤에 위치) */
+    .mv__visual::before,
+    .mv__visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 500px;
+    }
+    .mv__visual::before {      /* blur 링 */
+      z-index: -2;
       left: 700px; top: 118px;
       width: 663px; height: 663px;
       border: 5px solid var(--color-white);
-      border-radius: 500px;
       background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
       filter: blur(5px);
     }
-    .mv__ring--line {
+    .mv__visual::after {       /* line 링 */
+      z-index: -1;
       left: 755px; top: 173px;
       width: 553px; height: 553px;
       border: 1px solid var(--color-white-50);
-      border-radius: 500px;
     }
 
     .mv__img { height: auto; }
@@ -291,89 +295,87 @@
     .mv__scroll:hover::before,
     .mv__scroll:focus-visible::before { opacity: 0; }
 
+    /* =========================================================
+       Footer (시안 없음 : 화면에 보이지 않는 빈 영역)
+       ========================================================= */
+    footer { height: 0; overflow: hidden; }
+
     /* ---- 1440px 미만: 내용 영역 축소 대응 ---- */
     @media (max-width: 1439px) {
       .mv__visual { transform-origin: left top; }
     }
     @media (max-width: 1100px) {
-      .gnb__list { display: none; }
-      .gnb__cta { padding-left: 0; }
+      .gnb__list { gap: 0; }
+      .gnb__item:not(.gnb__item--cta) { display: none; }
       .mv__visual { display: none; }
       .mv__content { width: 100%; padding: 0 24px; }
       .mv__text { width: 100%; }
       .mv__title-em { font-size: 56px; line-height: 60px; }
       .mv__title-sub { font-size: 36px; }
       .mv__period { white-space: normal; font-size: 16px; }
-      .header .inner { padding: 0 24px; }
+      header .inner { padding: 0 24px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
 
-    <!-- ================= Header ================= -->
-    <header class="header">
-      <div class="inner">
-        <a class="logo" href="#" aria-label="한미그룹 홈">
-          <img src="./images/logo_svg.svg" alt="Hanmi 한미그룹" width="182" height="31">
-        </a>
+  <!-- ================= Header ================= -->
+  <header>
+    <div class="inner">
+      <a class="logo" href="#" aria-label="한미그룹 홈">
+        <img src="./images/logo_svg.svg" alt="Hanmi 한미그룹" width="182" height="31">
+      </a>
 
-        <nav class="gnb" aria-label="주요 메뉴">
-          <ul class="gnb__list">
-            <li class="gnb__item"><a class="gnb__link" href="#jobs">직무소개</a></li>
-            <li class="gnb__item"><a class="gnb__link" href="#qualification">지원자격 및 접수방법</a></li>
-            <li class="gnb__item"><a class="gnb__link" href="#schedule">채용설명회 일정</a></li>
-          </ul>
-          <div class="gnb__cta">
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul class="gnb__list">
+          <li class="gnb__item"><a class="gnb__link" href="#jobs">직무소개</a></li>
+          <li class="gnb__item"><a class="gnb__link" href="#qualification">지원자격 및 접수방법</a></li>
+          <li class="gnb__item"><a class="gnb__link" href="#schedule">채용설명회 일정</a></li>
+          <li class="gnb__item gnb__item--cta">
             <a class="btn btn--apply" href="#apply">
               <span>지원하기</span>
               <svg class="ico-chevron-right" viewBox="0 0 7 12" fill="none" aria-hidden="true">
                 <path d="M1 1l5 5-5 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= Main ================= -->
+  <main>
+    <section class="mv" id="main-visual" aria-labelledby="mv-title">
+      <div class="inner">
+
+        <!-- 텍스트 영역 -->
+        <div class="mv__content">
+          <div class="mv__text">
+            <p class="mv__eyebrow">2026년 하반기</p>
+            <h1 class="mv__title" id="mv-title">
+              <span class="mv__title-em">한미그룹</span>
+              <span class="mv__title-sub">공개채용</span>
+            </h1>
+            <p class="mv__period">모집기간 : 2026.9.28(월) ~ 2026.10.18(일) 23:59까지</p>
           </div>
-        </nav>
-      </div>
-    </header>
+          <a class="btn btn--primary" href="#jobs">모집직무 바로가기!</a>
+        </div>
 
-    <!-- ================= Main ================= -->
-    <main>
-      <section class="mv" id="main-visual" aria-labelledby="mv-title">
-        <div class="inner">
+        <!-- 비주얼 영역 (장식 요소 : 원형 링은 CSS 가상요소) -->
+        <!-- Container.png : 현미경 / Container-1.png : 파랑 / Container-2.png : 주황 / mv_char3_png.png : 보라 / Container-3.png : 노랑 -->
+        <div class="mv__visual" aria-hidden="true">
+          <img class="mv__img mv__img--micro" src="./images/Container.png"    alt="">
+          <img class="mv__img mv__img--char1" src="./images/Container-1.png"  alt="">
+          <img class="mv__img mv__img--char2" src="./images/Container-2.png"  alt="">
+          <img class="mv__img mv__img--char3" src="./images/mv_char3_png.png" alt="">
+          <img class="mv__img mv__img--char4" src="./images/Container-3.png"  alt="">
 
-          <!-- 좌측 텍스트 -->
-          <div class="mv__content">
-            <div class="mv__text">
-              <p class="mv__eyebrow">2026년 하반기</p>
-              <h1 class="mv__title" id="mv-title">
-                <span class="mv__title-em">한미그룹</span>
-                <span class="mv__title-sub">공개채용</span>
-              </h1>
-              <p class="mv__period">모집기간 : 2026.9.28(월) ~ 2026.10.18(일) 23:59까지</p>
-            </div>
-            <a class="btn btn--primary" href="#jobs">모집직무 바로가기!</a>
-          </div>
-
-          <!-- 우측 비주얼 (장식 요소) -->
-          <div class="mv__visual" aria-hidden="true">
-            <div class="mv__ring mv__ring--blur"></div>
-            <div class="mv__ring mv__ring--line"></div>
-
-            <!-- Container.png : 현미경 / Container-1.png : 파랑 / Container-2.png : 주황 / mv_char3_png.png : 보라 / Container-3.png : 노랑 -->
-            <img class="mv__img mv__img--micro" src="./images/Container.png"        alt="">
-            <img class="mv__img mv__img--char1" src="./images/Container-1.png"      alt="">
-            <img class="mv__img mv__img--char2" src="./images/Container-2.png"      alt="">
-            <img class="mv__img mv__img--char3" src="./images/mv_char3_png.png"     alt="">
-            <img class="mv__img mv__img--char4" src="./images/Container-3.png"      alt="">
-
-            <!-- 별 장식 (SVG) -->
-            <svg class="mv__star--1" viewBox="0 0 24 24"><path fill="#FFFFFF" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
-            <svg class="mv__star--2" viewBox="0 0 24 24"><path fill="#A56BFF" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
-            <svg class="mv__star--3" viewBox="0 0 24 24"><path fill="#FFC928" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
-            <svg class="mv__star--4" viewBox="0 0 24 24"><path fill="#FF5D32" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
-            <svg class="mv__star--5" viewBox="0 0 24 24"><path fill="#FFC928" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
-          </div>
-
+          <svg class="mv__star--1" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FFFFFF" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
+          <svg class="mv__star--2" viewBox="0 0 24 24" aria-hidden="true"><path fill="#A56BFF" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
+          <svg class="mv__star--3" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FFC928" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
+          <svg class="mv__star--4" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF5D32" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
+          <svg class="mv__star--5" viewBox="0 0 24 24" aria-hidden="true"><path fill="#FFC928" d="M12 0c.8 7.5 4.5 11.2 12 12-7.5.8-11.2 4.5-12 12-.8-7.5-4.5-11.2-12-12 7.5-.8 11.2-4.5 12-12z"/></svg>
         </div>
 
         <!-- 아래로 스크롤 버튼 -->
@@ -382,10 +384,13 @@
             <path d="M10 15l10 10 10-10" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-      </section>
-    </main>
 
-  </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= Footer (시안 없음) ================= -->
+  <footer></footer>
 
   <script>
     (function () {
