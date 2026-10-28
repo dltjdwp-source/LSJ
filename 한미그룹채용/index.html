@@ -1324,6 +1324,197 @@
       .con4__bubble { transition: none !important; }
       .con4__bubble:hover, .con4__bubble:focus-visible { transform: none; }
     }
+
+    /* =========================================================
+       Section : 복지 (.con5) - con4 섹션 바로 다음
+       - 시안 폭(데스크탑 815 / 태블릿 749 / 모바일 368)의 좌표를 --cs 배율로 환산
+         · 데스크탑 : 1025px 이상, 최대 폭 1100px 에서 고정 (그 이상은 가운데 정렬)
+         · 태블릿   : 768 ~ 1024px 비례 확대/축소 (카드 1열)
+         · 모바일   : 767px 이하, 520px 를 최대 폭으로 중앙 정렬 (카드 1열)
+       - 해상도별로 달라지는 값은 모두 변수로 분리, 구조 변화(2열 ↔ 1열)만 미디어쿼리에서 처리
+       ========================================================= */
+    .con5 {
+      --cw: 815;                                    /* 시안 폭 */
+      --cs: calc(min(100vw, 1100px) / var(--cw));   /* 시안 1px 이 실제 몇 px 인지 */
+
+      /* 여백 / 타이포 (시안 px) */
+      --pt: 117;  --pb: 112;
+      --t-fs: 28;  --t-lh: 36;  --sub-fs: 12.5;  --sub-lh: 18;  --sub-mt: 21;
+      --lead-mt: 47;  --lead-fs: 13;  --lead-lh: 18;  --lead-gap: 9;  --lead-sub-fs: 8.3;  --heart: 12;
+
+      /* 카드 목록 */
+      --list-mt: 19;                    /* 머리말 → 첫 카드 */
+      --list-pl: 47;  --list-pr: 32;    /* 좌측 여백 / 스크롤바 우측 여백 */
+      --list-h: 435.5;                  /* 스크롤 영역 높이 (데스크탑 : 5행이 딱 맞게) */
+      --col-gap: 15;  --row-gap: 12;  --sb-gap: 8;     /* 열 간격 / 행 간격 / 카드 ↔ 스크롤바 간격 */
+      --card-h: 77.5;  --card-py: 10;  --card-r: 14;  --card-pl: 19;  --card-pr: 18;
+      --ico: 38;  --txt-gap: 12;
+      --c-fs: 11.4;  --c-lh: 16;  --d-fs: 8;  --d-lh: 12;  --d-mt: 5;
+
+      /* 커스텀 스크롤바 (px 고정 : 매우 얇게) / 카드 그림자가 잘리지 않도록 주는 여백 */
+      --sb-w: 4px;  --sb-pad: 4px;
+      --sb-track: #F1ECEA;
+
+      /* 장식 이미지 좌표 / 너비 (시안 px, inner 왼쪽·위 기준) */
+      --char-x: 647;  --char-y: 47;  --char-w: 158;     /* 주황 캐릭터 */
+      --mas-x: 34;  --mas-w: 133;                       /* 보라 캐릭터 (섹션 바닥에 붙음) */
+
+      position: relative;
+      overflow: hidden;
+      background: var(--color-white);
+    }
+    .con5__inner {
+      position: relative;
+      width: calc(var(--cw) * var(--cs));
+      margin: 0 auto;
+      padding: calc(var(--pt) * var(--cs)) 0 calc(var(--pb) * var(--cs));
+    }
+
+    /* ---- 제목 ---- */
+    .con5__head { position: relative; z-index: 2; text-align: center; }
+    .con5__title {
+      margin: 0;
+      font-size: calc(var(--t-fs) * var(--cs));
+      line-height: calc(var(--t-lh) / var(--t-fs));
+      font-weight: 700; letter-spacing: -0.03em;
+      color: var(--color-black);
+    }
+    .con5__sub {
+      margin: calc(var(--sub-mt) * var(--cs)) 0 0;
+      font-size: calc(var(--sub-fs) * var(--cs));
+      line-height: calc(var(--sub-lh) / var(--sub-fs));
+      font-weight: 400; letter-spacing: -0.02em;
+      color: #111;
+    }
+    .con5__br-m { display: none; }
+
+    /* ---- 장식 이미지 ---- */
+    .con5__deco { position: absolute; height: auto; max-width: none; pointer-events: none; user-select: none; }
+    .con5__char   { z-index: 1; left: calc(var(--char-x) * var(--cs)); top: calc(var(--char-y) * var(--cs)); width: calc(var(--char-w) * var(--cs)); }
+    .con5__mascot { z-index: 3; left: calc(var(--mas-x) * var(--cs));  bottom: 0;                              width: calc(var(--mas-w) * var(--cs)); }
+
+    /* ---- 패널 (머리말 + 스크롤 카드 영역) ---- */
+    .con5__panel {
+      position: relative; z-index: 2;
+      margin: calc(var(--lead-mt) * var(--cs)) calc(var(--list-pr) * var(--cs)) 0 calc(var(--list-pl) * var(--cs));
+    }
+    .con5__lead { display: flex; align-items: baseline; gap: calc(var(--lead-gap) * var(--cs)); }
+    .con5__lead-main {
+      margin: 0;
+      display: inline-flex; align-items: center; gap: calc(5 * var(--cs));
+      font-size: calc(var(--lead-fs) * var(--cs));
+      line-height: calc(var(--lead-lh) / var(--lead-fs));
+      font-weight: 700; letter-spacing: -0.03em;
+      color: var(--color-orange);
+    }
+    .con5__heart { flex: none; width: calc(var(--heart) * var(--cs)); height: auto; }
+    .con5__lead-sub {
+      margin: 0;
+      font-size: max(10px, calc(var(--lead-sub-fs) * var(--cs)));
+      line-height: 1.4; font-weight: 400; letter-spacing: -0.02em;
+      color: #111;
+    }
+
+    /* ---- 세로 스크롤 영역 ----
+       - 카드 그림자가 overflow 에 잘리지 않도록 --sb-pad 만큼 안쪽 여백을 주고 음수 마진으로 상쇄
+       - 카드 ↔ 스크롤바 간격 = 오른쪽 padding */
+    .con5__scroll {
+      height: calc(var(--list-h) * var(--cs) + var(--sb-pad) * 2);
+      margin: calc(var(--list-mt) * var(--cs) - var(--sb-pad)) 0 0 calc(var(--sb-pad) * -1);
+      padding: var(--sb-pad) calc(var(--sb-gap) * var(--cs)) var(--sb-pad) var(--sb-pad);
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    .con5__scroll:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 2px; border-radius: 4px; }
+
+    /* 커스텀 스크롤바 (Chrome / Edge / Safari) : 얇은 트랙 + 주황 바 */
+    .con5__scroll::-webkit-scrollbar { width: var(--sb-w); }
+    .con5__scroll::-webkit-scrollbar-track { background: var(--sb-track); border-radius: 500px; }
+    .con5__scroll::-webkit-scrollbar-thumb { background: var(--color-orange); border-radius: 500px; }
+    .con5__scroll::-webkit-scrollbar-thumb:hover { background: var(--color-red); }
+    /* Firefox : ::-webkit-scrollbar 미지원 → 표준 속성 사용
+       (Chrome 121+ 는 scrollbar-color 가 있으면 ::-webkit-scrollbar 를 무시하므로 @supports 로 분리) */
+    @supports not selector(::-webkit-scrollbar) {
+      .con5__scroll { scrollbar-width: thin; scrollbar-color: var(--color-orange) var(--sb-track); }
+    }
+
+    /* ---- 카드 ---- */
+    .con5__list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: calc(var(--col-gap) * var(--cs));
+      row-gap: calc(var(--row-gap) * var(--cs));
+    }
+    .con5__card {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: calc(var(--txt-gap) * var(--cs));
+      min-height: calc(var(--card-h) * var(--cs));
+      padding: calc(var(--card-py) * var(--cs)) calc(var(--card-pr) * var(--cs)) calc(var(--card-py) * var(--cs)) calc(var(--card-pl) * var(--cs));
+      border: 1px solid #FFE1D8;
+      border-radius: calc(var(--card-r) * var(--cs));
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFF7F4 100%);
+      box-shadow: 0 calc(3 * var(--cs)) calc(8 * var(--cs)) rgba(255, 120, 90, 0.12);
+    }
+    .con5__txt { flex: 1; min-width: 0; }
+    .con5__name {
+      margin: 0;
+      font-size: calc(var(--c-fs) * var(--cs));
+      line-height: calc(var(--c-lh) / var(--c-fs));
+      font-weight: 700; letter-spacing: -0.03em;
+      color: var(--color-black);
+    }
+    .con5__desc {
+      margin: calc(var(--d-mt) * var(--cs)) 0 0;
+      font-size: max(10px, calc(var(--d-fs) * var(--cs)));
+      line-height: calc(var(--d-lh) / var(--d-fs));
+      font-weight: 400; letter-spacing: -0.02em;
+      color: #333;
+    }
+    .con5__ico { flex: none; width: calc(var(--ico) * var(--cs)); height: auto; }
+
+    /* =========================================================
+       태블릿 (768 ~ 1024px) : 시안 749px 기준
+       - 카드 1열 / 카드·아이콘 확대 / 5행 + 6번째 카드가 살짝 보이는 높이
+       ========================================================= */
+    @media (max-width: 1024px) {
+      .con5 {
+        --cw: 749;  --cs: calc(100vw / var(--cw));
+        --pt: 109;  --pb: 102;
+        --t-fs: 25;  --t-lh: 32;  --sub-fs: 13.3;  --sub-lh: 19;  --sub-mt: 16.5;
+        --lead-mt: 47;  --lead-fs: 13.5;  --lead-lh: 19;  --lead-gap: 9;  --lead-sub-fs: 9.6;  --heart: 13;
+        --list-mt: 21;  --list-pl: 30;  --list-pr: 29;  --list-h: 472;
+        --row-gap: 12;
+        --card-h: 82;  --card-r: 16;  --card-pl: 18;  --card-pr: 16;
+        --ico: 48;
+        --c-fs: 12;  --c-lh: 17;  --d-fs: 9.3;  --d-lh: 14;  --d-mt: 6;
+        --char-x: 592;  --char-y: 17;  --char-w: 143;
+        --mas-x: 10;  --mas-w: 128;
+      }
+      .con5__list { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    /* =========================================================
+       모바일 (767px 이하) : 시안 368px 기준, 520px 를 넘으면 가운데 정렬
+       - 제목 2줄 / 머리말 세로 배치 / 카드 설명 2줄 줄바꿈 / 4행이 보이는 높이
+       ========================================================= */
+    @media (max-width: 767px) {
+      .con5 {
+        --cw: 368;  --cs: calc(min(100vw, 520px) / var(--cw));
+        --pt: 68;  --pb: 104;
+        --t-fs: 20.5;  --t-lh: 30;  --sub-fs: 12;  --sub-lh: 17;  --sub-mt: 16.5;
+        --lead-mt: 40;  --lead-fs: 14;  --lead-lh: 20;  --lead-gap: 7;  --lead-sub-fs: 9.3;  --heart: 15;
+        --list-mt: 20;  --list-pl: 20;  --list-pr: 16;  --list-h: 460;
+        --card-h: 106;  --card-py: 14;  --card-r: 18;  --card-pl: 20;  --card-pr: 16;
+        --ico: 50;  --txt-gap: 14;
+        --c-fs: 14;  --c-lh: 20;  --d-fs: 10.8;  --d-lh: 17;  --d-mt: 8;
+        --char-x: 252;  --char-y: 28;  --char-w: 96;
+        --mas-x: 12;  --mas-w: 99;
+      }
+      .con5__br-m { display: inline; }
+      .con5__lead { flex-direction: column; align-items: flex-start; }
+    }
   </style>
 </head>
 <body>
@@ -1680,6 +1871,121 @@
           <p class="con4__note">※ 말풍선을 클릭해서 기사를 확인해 보세요.</p>
         </div>
 
+      </div>
+    </section>
+
+    <!-- 복지 섹션 : 이미지는 ./images/wf_ico*.png (카드 아이콘) / con5_char.png (주황 캐릭터) / con5_cloud.png (보라 캐릭터) -->
+    <section class="con5" id="con5" aria-labelledby="con5-title">
+      <div class="con5__inner">
+
+        <div class="con5__head">
+          <h2 class="con5__title" id="con5-title">한미 생활을<br class="con5__br-m"> 더 즐겁게 만드는 방법</h2>
+          <p class="con5__sub">건강부터 성장, 휴식까지 알차게 준비한 복지를 소개할게요.</p>
+        </div>
+
+        <!-- 장식 : 주황 캐릭터(우측 상단) / 보라 캐릭터(좌측 하단, 섹션 바닥에 붙음) -->
+        <img class="con5__deco con5__char"   src="./images/con5_char.png"  alt="" aria-hidden="true" width="413" height="420">
+        <img class="con5__deco con5__mascot" src="./images/con5_cloud.png" alt="" aria-hidden="true" width="335" height="209" loading="lazy">
+
+        <div class="con5__panel">
+          <div class="con5__lead">
+            <p class="con5__lead-main"> 
+              <img class="con5__heart" src="./images/wf_tit1.png" alt="" width="24" height="22" loading="lazy">
+              <span>오늘의 나도, 내일의 나도 든든하게!</span>
+            </p>
+            <p class="con5__lead-sub">건강, 성장, 문화생활까지 알차게 챙겨드려요.</p>
+          </div>
+
+          <!-- 세로 스크롤 영역 : 13개 복지 카드 + 반복 13개 (5행 2열 / 태블릿·모바일 1열) -->
+          <div class="con5__scroll" tabindex="0" role="region" aria-label="한미 복지 목록">
+            <ul class="con5__list">
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">건강 검진</h3>
+                <p class="con5__desc">건강한 하루가 오래 이어지도록, 정기적인 건강관리를 지원해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico1.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">기념일 축하 지원</h3>
+                <p class="con5__desc">소중한 기념일이 더 특별해지도록 한미가 함께 축하해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico2.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">본인주도 선택복지</h3>
+                <p class="con5__desc">나에게 필요한 복지를 내 취향과 생활에 맞게 선택할 수 있어요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico3.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">장기 근속 포상</h3>
+                <p class="con5__desc">한미와 함께 걸어온 소중한 시간에 감사의 마음을 전해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico4.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">유연근무제</h3>
+                <p class="con5__desc">업무와 일상의 균형을 찾을 수 있도록 유연한 근무를 지원해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico5.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">단체 상해 보험</h3>
+                <p class="con5__desc">예상하지 못한 순간에도 든든할 수 있도록 임직원을 보호해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico6.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">직무 교육 지원</h3>
+                <p class="con5__desc">배우고 성장하는 즐거움이 계속되도록 역량 개발을 지원해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico7.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">임직원 제휴 할인</h3>
+                <p class="con5__desc">다양한 제휴 혜택으로 일상 속 즐거움과 실속을 더해드려요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico8.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">문화 생활 지원</h3>
+                <p class="con5__desc">바쁜 일상에 기분 좋은 쉼표를 더할 수 있도록 문화생활을 응원해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico9.png" alt="" width="74" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">구내식당</h3>
+                <p class="con5__desc">든든하고 맛있는 한 끼로 활기찬 하루를 채워드려요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico10.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">임직원 스트레스 관리</h3>
+                <p class="con5__desc">몸과 마음이 지치지 않도록 건강한 마음 관리를 함께해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico11.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            <li class="con5__card">
+              <div class="con5__txt">
+                <h3 class="con5__name">제휴 약국</h3>
+                <p class="con5__desc">갑작스러운 치료에도 걱정 없도록 의료비를 지원해요.</p>
+              </div>
+              <img class="con5__ico" src="./images/wf_ico12.png" alt="" width="72" height="72" loading="lazy">
+            </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   </main>
