@@ -932,7 +932,7 @@
       --btn-w: 200;  --btn-h: 44;  --btn-fs: 14.5;  --btn-mt: 55;
 
       /* 장식 이미지 좌표 / 너비 (시안 px, 섹션 위 / inner 왼쪽 기준) */
-      --logo-x: 170;  --logo-y: 60;  --logo-w: 90;
+      --logo-x: 150;  --logo-y: 70;  --logo-w: 90;
       --char-x: 800;  --char-y: 78;  --char-w: 200;
       --bottle-x: 0;  --bottle-y: 490;  --bottle-w: 130;
 
@@ -1000,6 +1000,7 @@
     }
     .con3__card:hover,
     .con3__card:focus-visible {
+      /* 마우스 오버시 카드 배경색 투명도 없애기 */
       transform: translateY(calc(-4 * var(--cs)));
       background: #fef7f5;
       box-shadow: 0 calc(10 * var(--cs)) calc(30 * var(--cs)) rgba(230, 90, 60, 0.16);
@@ -1050,7 +1051,10 @@
     .con3__arrow svg { width: 52%; height: auto; }
     .con3__card:hover .con3__arrow,
     .con3__card:focus-visible .con3__arrow { 
-      transform: translateX(calc(3 * var(--cs)));}
+      transform: translateX(calc(3 * var(--cs)));
+      /* 마우스 오버시 카드 배경색 투명도 없애기 */
+      transition: transform var(--transition)(--transition), box-shadow var(--transition) background .5s; background:#E5603C;
+    }
 
     /* ---- 버튼 (공통 .btn 의 hover 반전 효과 재사용) ---- */
     .con3__more { position: relative; z-index: 2; margin: calc(var(--btn-mt) * var(--cs)) 0 0; text-align: center; }
@@ -1117,6 +1121,208 @@
     @media (prefers-reduced-motion: reduce) {
       .mnav, .mnav__overlay, .mnav__panel,
       .history__content, .history__gradient, .history__toggle, .history__fold svg { transition: none !important; }
+    }
+
+    /* =========================================================
+       Section : 성장 뉴스 (.con4) - con3 섹션 바로 다음
+       - 시안 폭(데스크탑 521 / 태블릿 368 / 모바일 361)의 좌표를 --cs 배율로 환산
+         · 데스크탑 : 1025px 이상, 최대 폭 1100px 에서 고정 (그 이상은 가운데 정렬)
+         · 태블릿   : 768 ~ 1024px 비례 확대/축소
+         · 모바일   : 767px 이하, 520px 를 최대 폭으로 중앙 정렬
+       - 해상도별로 달라지는 값은 변수로 분리, 구조 변화는 미디어쿼리에서만 처리
+       ========================================================= */
+    .con4 {
+      --cw: 521;                                    /* 시안 폭 */
+      --cs: calc(min(100vw, 1100px) / var(--cw));   /* 시안 1px 이 실제 몇 px 인지 */
+
+      /* 여백 / 타이포 (시안 px) */
+      --pt: 42;  --pb: 80;
+      --t-fs: 22;  --t-lh: 29;  --sub-fs: 8.6;  --sub-lh: 13;  --sub-mt: 6;
+      --panel-mt: 30;  --panel-r: 18;  --panel-px: 20;  --panel-pt: 22;  --panel-pb: 22;
+      --gap: 19;
+      --b-fs: 8;  --b-lh: 11.5;  --b-px: 12;  --b-py: 8;  --b-r: 7;  --tail-w: 12;  --tail-h: 9;
+      --note-fs: 6.4;  --note-mt: 14;
+
+      /* 장식 이미지 좌표 / 너비 (시안 px, inner 왼쪽·위 기준) */
+      --panel-mx: 22;                                /* 패널 좌우 바깥 여백 */
+      --atom-r: 6;  --atom-t: -31;  --atom-w: 68;     /* 패널 우상단 기준 */
+      --formula-r: 10;  --formula-t: -1;  --formula-w: 100;
+      --mol-l: 28;  --mol-b: 0;  --mol-w: 64;         /* 섹션(inner) 좌하단 기준 */
+
+      position: relative;
+      overflow: hidden;                              /* 배경 원이 화면 밖으로 나가므로 필수 */
+      background: linear-gradient(180deg, #FFF8F5 0%, #FFEFE9 100%);
+    }
+
+    /* ---- 배경 원형 그라데이션 박스 (레드 → 투명) ---- */
+    .con4::before,
+    .con4::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background: radial-gradient(circle closest-side, var(--color-red) 0%, rgba(230, 0, 18, 0) 100%);
+      pointer-events: none;
+    }
+    .con4::before {                                  /* 우상단 : 30vw, 60% 노출 */
+      top: 0; right: 0;
+      width: 30vw;
+      opacity: 0.3;
+      transform: translate(40%, -40%);
+    }
+    .con4::after {                                   /* 좌하단 : 20vw, 일부 노출 */
+      bottom: 0; left: 0;
+      width: 20vw;
+      opacity: 0.2;
+      transform: translate(-35%, 35%);
+    }
+
+    .con4__inner {
+      position: relative; z-index: 1;
+      width: calc(var(--cw) * var(--cs));
+      margin: 0 auto;
+      padding: calc(var(--pt) * var(--cs)) 0 calc(var(--pb) * var(--cs));
+    }
+
+    /* ---- 제목 ---- */
+    .con4__head { text-align: center; }
+    .con4__title {
+      margin: 0;
+      font-size: calc(var(--t-fs) * var(--cs));
+      line-height: calc(var(--t-lh) / var(--t-fs));
+      font-weight: 700; letter-spacing: -0.03em;
+      color: var(--color-black);
+    }
+    .con4__sub {
+      margin: calc(var(--sub-mt) * var(--cs)) 0 0;
+      font-size: calc(var(--sub-fs) * var(--cs));
+      line-height: calc(var(--sub-lh) / var(--sub-fs));
+      font-weight: 400; letter-spacing: -0.02em;
+      color: #111;
+    }
+    .con4__br-m { display: none; }
+
+    /* ---- 장식 이미지 ---- */
+    .con4__deco { position: absolute; height: auto; max-width: none; pointer-events: none; user-select: none; }
+    /* 원자 / 화학식 : 패널 우상단에 고정 → 패널과 함께 줄어듦 */
+    .con4__atom    { z-index: 3; right: calc(var(--atom-r) * var(--cs));    top: calc(var(--atom-t) * var(--cs));    width: calc(var(--atom-w) * var(--cs)); }
+    .con4__formula { z-index: 0; right: calc(var(--formula-r) * var(--cs)); top: calc(var(--formula-t) * var(--cs)); width: calc(var(--formula-w) * var(--cs)); }
+    /* 분자 구조 : 섹션 좌하단에 고정 */
+    .con4__mol     { z-index: 3; left: calc(var(--mol-l) * var(--cs));      bottom: calc(var(--mol-b) * var(--cs));  width: calc(var(--mol-w) * var(--cs)); }
+
+    /* ---- 큰 패널 ---- */
+    .con4__panel {
+      position: relative; z-index: 2;
+      margin: calc(var(--panel-mt) * var(--cs)) calc(var(--panel-mx) * var(--cs)) 0;
+      padding: calc(var(--panel-pt) * var(--cs)) calc(var(--panel-px) * var(--cs)) calc(var(--panel-pb) * var(--cs));
+      border-radius: calc(var(--panel-r) * var(--cs));
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 calc(6 * var(--cs)) calc(24 * var(--cs)) rgba(230, 90, 60, 0.08);
+    }
+
+    /* ---- 말풍선 목록 ---- */
+    .con4__list { position: relative; z-index: 1; display: flex; flex-direction: column; gap: calc(var(--gap) * var(--cs)); }
+    .con4__item { display: flex; }
+    .con4__item--l { justify-content: flex-start; padding-left: calc(var(--tail-w) * 0.5 * var(--cs)); }
+    .con4__item--r { justify-content: flex-end;   padding-right: calc(var(--tail-w) * 0.5 * var(--cs)); }
+
+    .con4__bubble {
+      position: relative;
+      display: block;
+      max-width: 100%;
+      padding: calc(var(--b-py) * var(--cs)) calc(var(--b-px) * var(--cs));
+      transition: transform var(--transition);
+    }
+    .con4__bubble:hover,
+    .con4__bubble:focus-visible { transform: translateY(calc(-2 * var(--cs))); }
+
+    /* SVG 배경 : 말풍선 크기에 맞춰 늘어나도 모서리 반경은 그대로 (viewBox 미사용) */
+    .con4__bg {
+      position: absolute; inset: 0; z-index: 0;
+      filter: drop-shadow(0 calc(2 * var(--cs)) calc(6 * var(--cs)) rgba(230, 90, 60, 0.14));
+      pointer-events: none;
+    }
+    .con4__body { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .con4__body rect { rx: calc(var(--b-r) * var(--cs)); ry: calc(var(--b-r) * var(--cs)); }   /* 속성 rx 는 폴백 */
+    .con4__tail {                                   /* 뾰족한 모서리 (아래쪽 바깥) */
+      position: absolute; bottom: 0;
+      width: calc(var(--tail-w) * var(--cs));
+      height: calc(var(--tail-h) * var(--cs));
+      overflow: visible;
+    }
+    .con4__tail path { fill: currentColor; }
+    .con4__item--l .con4__tail { left:  calc(var(--tail-w) * -0.45 * var(--cs)); }
+    .con4__item--r .con4__tail { right: calc(var(--tail-w) * -0.45 * var(--cs)); transform: scaleX(-1); }
+
+    /* 색상 : 왼쪽 = 주황 배경 + 흰 글씨 / 오른쪽 = 흰 배경 + 주황 글씨 */
+    .con4__item--l .con4__bg   { color: var(--color-orange); }
+    .con4__item--l .con4__body rect { fill: var(--color-orange); }
+    .con4__item--r .con4__bg   { color: var(--color-white); }
+    .con4__item--r .con4__body rect { fill: var(--color-white); }
+
+    .con4__txt {
+      position: relative; z-index: 1;
+      display: block;
+      font-size: calc(var(--b-fs) * var(--cs));
+      line-height: calc(var(--b-lh) / var(--b-fs));
+      font-weight: 600; letter-spacing: -0.03em;
+    }
+    .con4__item--l .con4__txt { color: var(--color-white); }
+    .con4__item--r .con4__txt { color: var(--color-orange); }
+
+    .con4__note {
+      margin: calc(var(--note-mt) * var(--cs)) 0 0;
+      text-align: right;
+      font-size: calc(var(--note-fs) * var(--cs));
+      line-height: 1.4; letter-spacing: -0.02em;
+      color: rgba(0, 0, 0, 0.3);
+    }
+
+    /* =========================================================
+       태블릿 (768 ~ 1024px) : 시안 368px 기준
+       ========================================================= */
+    @media (max-width: 1024px) {
+      .con4 {
+        --cw: 368;  --cs: calc(100vw / var(--cw));
+        --pt: 34;  --pb: 56;
+        --t-fs: 16;  --t-lh: 21;  --sub-fs: 8;  --sub-lh: 12;  --sub-mt: 6;
+        --panel-mt: 22;  --panel-r: 14;  --panel-px: 14;  --panel-pt: 20;  --panel-pb: 20;
+        --gap: 14;
+        --b-fs: 8.4;  --b-lh: 11.5;  --b-px: 10;  --b-py: 7.5;  --b-r: 6;  --tail-w: 10;  --tail-h: 8;
+        --note-fs: 6.6;  --note-mt: 12;
+        --panel-mx: 14;
+        --atom-r: 2;  --atom-t: -26;  --atom-w: 54;
+        --formula-r: 10;  --formula-t: -1;  --formula-w: 50;
+        --mol-l: 10;  --mol-b: 0;  --mol-w: 46;
+      }
+    }
+
+    /* =========================================================
+       모바일 (767px 이하) : 시안 361px 기준, 520px 를 넘으면 가운데 정렬
+       ========================================================= */
+    @media (max-width: 767px) {
+      .con4 {
+        --cw: 361;  --cs: calc(min(100vw, 520px) / var(--cw));
+        --pt: 36;  --pb: 52;
+        --t-fs: 17;  --t-lh: 23;  --sub-fs: 9.4;  --sub-lh: 14;  --sub-mt: 8;
+        --panel-mt: 56;  --panel-r: 14;  --panel-px: 14;  --panel-pt: 18;  --panel-pb: 18;
+        --gap: 12;
+        --b-fs: 9.4;  --b-lh: 13;  --b-px: 10;  --b-py: 8;  --b-r: 7;  --tail-w: 10;  --tail-h: 8;
+        --note-fs: 7.4;  --note-mt: 12;
+        --panel-mx: 20;
+        --atom-r: 3;  --atom-t: -34;  --atom-w: 52;
+        --formula-r: 58;  --formula-t: -4;  --formula-w: 40;
+        --mol-l: 18;  --mol-b: 0;  --mol-w: 46;
+      }
+      .con4__br-m { display: inline; }
+      .con4__item--l { padding-right: calc(24 * var(--cs)); }   /* 긴 문장이 반대편 끝까지 닿지 않도록 */
+      .con4__item--r { padding-left:  calc(24 * var(--cs)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .con4__bubble { transition: none !important; }
+      .con4__bubble:hover, .con4__bubble:focus-visible { transform: none; }
     }
   </style>
 </head>
@@ -1386,6 +1592,94 @@
         </ul>
 
         <p class="con3__more"><a class="btn con3__btn" href="#">모든 현직자 알아가기!</a></p>
+      </div>
+    </section>
+
+    <!-- 성장 뉴스 섹션 : 이미지는 ./images/inno_chemical*.png (1 = 화학식 / 2 = 원자 / 3 = 분자 구조) -->
+    <section class="con4" id="con4" aria-labelledby="con4-title">
+      <div class="con4__inner">
+
+        <div class="con4__head">
+          <h2 class="con4__title" id="con4-title">당신의 가능성,<br>한미그룹에서 더 크게 성장합니다</h2>
+          <p class="con4__sub">연구와 혁신으로 성장하며 글로벌 제약/바이오 기업을<br class="con4__br-m"> 향해 나아갑니다.</p>
+        </div>
+
+        <!-- 장식 이미지 (분자 구조는 섹션 하단 기준) -->
+        <img class="con4__deco con4__mol"     src="./images/inno_chemical2.png" alt="" aria-hidden="true" width="359" height="359" loading="lazy">
+
+        <div class="con4__panel">
+          <img class="con4__deco con4__formula" src="./images/inno_chemical1.png" alt="" aria-hidden="true" width="702" height="208" loading="lazy">
+          <img class="con4__deco con4__atom"    src="./images/inno_chemical3.png" alt="" aria-hidden="true" width="359" height="383" loading="lazy">
+          <ul class="con4__list">
+            <!-- 왼쪽(주황) / 오른쪽(흰색) 말풍선 교차 : con4__item--l / con4__item--r -->
+            <li class="con4__item con4__item--l">
+              <a class="con4__bubble" href="#">
+                <span class="con4__bg" aria-hidden="true">
+                  <svg class="con4__body" width="100%" height="100%" focusable="false"><rect width="100%" height="100%" rx="7" ry="7"/></svg>
+                  <svg class="con4__tail" viewBox="0 0 12 9" focusable="false"><path d="M12 0V9H2.2C.6 9-.3 7.7.9 6.6 4.2 3.6 5.8 2.5 6.4 0Z"/></svg>
+                </span>
+                <span class="con4__txt">한미약품, 상반기 누적 매출 8,602억원…2분기 영업이익 117% 증가</span>
+              </a>
+            </li>
+            <li class="con4__item con4__item--r">
+              <a class="con4__bubble" href="#">
+                <span class="con4__bg" aria-hidden="true">
+                  <svg class="con4__body" width="100%" height="100%" focusable="false"><rect width="100%" height="100%" rx="7" ry="7"/></svg>
+                  <svg class="con4__tail" viewBox="0 0 12 9" focusable="false"><path d="M12 0V9H2.2C.6 9-.3 7.7.9 6.6 4.2 3.6 5.8 2.5 6.4 0Z"/></svg>
+                </span>
+                <span class="con4__txt">“사업형 지주사 경쟁력 입증”…한미사이언스, 2분기 영업이익 71%↑<br>2분기 매출 3,679억원…상반기 누적 매출 7,216억원 돌파</span>
+              </a>
+            </li>
+            <li class="con4__item con4__item--l">
+              <a class="con4__bubble" href="#">
+                <span class="con4__bg" aria-hidden="true">
+                  <svg class="con4__body" width="100%" height="100%" focusable="false"><rect width="100%" height="100%" rx="7" ry="7"/></svg>
+                  <svg class="con4__tail" viewBox="0 0 12 9" focusable="false"><path d="M12 0V9H2.2C.6 9-.3 7.7.9 6.6 4.2 3.6 5.8 2.5 6.4 0Z"/></svg>
+                </span>
+                <span class="con4__txt">한미약품, 로슈 제넨텍에 비만신약 기술수출…최대 3조 2,000억 규모</span>
+              </a>
+            </li>
+            <li class="con4__item con4__item--r">
+              <a class="con4__bubble" href="#">
+                <span class="con4__bg" aria-hidden="true">
+                  <svg class="con4__body" width="100%" height="100%" focusable="false"><rect width="100%" height="100%" rx="7" ry="7"/></svg>
+                  <svg class="con4__tail" viewBox="0 0 12 9" focusable="false"><path d="M12 0V9H2.2C.6 9-.3 7.7.9 6.6 4.2 3.6 5.8 2.5 6.4 0Z"/></svg>
+                </span>
+                <span class="con4__txt">“UCN2 이어 또…” 한미약품, 두 번째 근육 증가 비만신약 공개</span>
+              </a>
+            </li>
+            <li class="con4__item con4__item--l">
+              <a class="con4__bubble" href="#">
+                <span class="con4__bg" aria-hidden="true">
+                  <svg class="con4__body" width="100%" height="100%" focusable="false"><rect width="100%" height="100%" rx="7" ry="7"/></svg>
+                  <svg class="con4__tail" viewBox="0 0 12 9" focusable="false"><path d="M12 0V9H2.2C.6 9-.3 7.7.9 6.6 4.2 3.6 5.8 2.5 6.4 0Z"/></svg>
+                </span>
+                <span class="con4__txt">명품 반열 오른 한미 ‘로수젯’…압도적 데이터 경쟁력으로 시장 석권<br>2년 연속 국내사 개발 전문의약품 시장 ‘1위’…올해 상반기 누적 처방액도 선두</span>
+              </a>
+            </li>
+            <li class="con4__item con4__item--r">
+              <a class="con4__bubble" href="#">
+                <span class="con4__bg" aria-hidden="true">
+                  <svg class="con4__body" width="100%" height="100%" focusable="false"><rect width="100%" height="100%" rx="7" ry="7"/></svg>
+                  <svg class="con4__tail" viewBox="0 0 12 9" focusable="false"><path d="M12 0V9H2.2C.6 9-.3 7.7.9 6.6 4.2 3.6 5.8 2.5 6.4 0Z"/></svg>
+                </span>
+                <span class="con4__txt">“비만 넘어 항암으로 혁신 확장”…한미, AACR서 차세대 신약 대거 공개</span>
+              </a>
+            </li>
+            <li class="con4__item con4__item--l">
+              <a class="con4__bubble" href="#">
+                <span class="con4__bg" aria-hidden="true">
+                  <svg class="con4__body" width="100%" height="100%" focusable="false"><rect width="100%" height="100%" rx="7" ry="7"/></svg>
+                  <svg class="con4__tail" viewBox="0 0 12 9" focusable="false"><path d="M12 0V9H2.2C.6 9-.3 7.7.9 6.6 4.2 3.6 5.8 2.5 6.4 0Z"/></svg>
+                </span>
+                <span class="con4__txt">한미 완전두유·케어미, 영양에 ‘맛’까지 인정…국제 우수 미각상 수상</span>
+              </a>
+            </li>
+          </ul>
+
+          <p class="con4__note">※ 말풍선을 클릭해서 기사를 확인해 보세요.</p>
+        </div>
+
       </div>
     </section>
   </main>
