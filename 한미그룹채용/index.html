@@ -3142,10 +3142,19 @@
       .tasks__modal-meta strong {
         color: var(--color-orange);
       }
-      .tasks__experience {
+      .tasks__modal-category {
         margin: 8px 0 0;
         color: #777;
         font-size: 13px;
+      }
+      .tasks__modal-count {
+        margin: 0;
+        color: #777;
+        font-size: 14px;
+      }
+      .tasks__modal-count strong {
+        color: var(--color-orange);
+        font-weight: 700;
       }
       .tasks__detail-section {
         margin-top: 42px;
@@ -3183,6 +3192,10 @@
         height: 5px;
         border-radius: 50%;
         background: var(--color-orange);
+      }
+      .tasks__detail-list li.is-current {
+        font-weight: 700;
+        color: #111;
       }
 
       @media (max-width: 1024px) {
@@ -3340,8 +3353,11 @@
         .tasks__modal-meta {
           font-size: 13px;
         }
-        .tasks__experience {
+        .tasks__modal-category {
           font-size: 12px;
+        }
+        .tasks__modal-count {
+          font-size: 13px;
         }
         .tasks__detail-section {
           margin-top: 30px;
@@ -4654,10 +4670,10 @@
           <div class="tasks__tabs-wrap">
             <div class="tasks__tabs" role="tablist" aria-label="직무 분야">
               <button class="tasks__tab" id="tasks-tab-rnd" type="button" role="tab" aria-selected="true" aria-controls="tasks-groups" data-task-category="rnd">R&amp;D</button>
-              <button class="tasks__tab" id="tasks-tab-production" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="production">생산/품질</button>
+              <button class="tasks__tab" id="tasks-tab-production" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="prod">생산/품질</button>
               <button class="tasks__tab" id="tasks-tab-sales" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="sales">영업</button>
-              <button class="tasks__tab" id="tasks-tab-management" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="management">경영관리</button>
-              <button class="tasks__tab" id="tasks-tab-clinical" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="clinical">임상</button>
+              <button class="tasks__tab" id="tasks-tab-management" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="mps">경영관리</button>
+              <button class="tasks__tab" id="tasks-tab-clinical" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="cl">임상</button>
               <button class="tasks__tab" id="tasks-tab-global" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="global">글로벌</button>
               <button class="tasks__tab" id="tasks-tab-healthcare" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="healthcare">헬스케어</button>
             </div>
@@ -4688,7 +4704,7 @@
               <h2 class="tasks__modal-title" id="tasks-modal-title"></h2>
               <p class="tasks__modal-meta"><strong data-tasks-modal-category></strong><span data-tasks-modal-location></span></p>
             </div>
-            <p class="tasks__experience" data-tasks-modal-experience></p>
+            <p class="tasks__modal-category" data-tasks-modal-job-category></p>
             <section class="tasks__detail-section" aria-labelledby="tasks-duty-title">
               <h3 class="tasks__detail-heading" id="tasks-duty-title">직무 내용</h3>
               <ul class="tasks__detail-list" data-tasks-modal-duties></ul>
@@ -4696,6 +4712,10 @@
             <section class="tasks__detail-section" aria-labelledby="tasks-qualification-title">
               <h3 class="tasks__detail-heading" id="tasks-qualification-title">자격요건</h3>
               <ul class="tasks__detail-list" data-tasks-modal-qualifications></ul>
+            </section>
+            <section class="tasks__detail-section" aria-labelledby="tasks-preferred-title">
+              <h3 class="tasks__detail-heading" id="tasks-preferred-title">우대사항</h3>
+              <ul class="tasks__detail-list" data-tasks-modal-preferred></ul>
             </section>
           </div>
         </dialog>
@@ -4986,95 +5006,139 @@
         var tasks = document.querySelector(".tasks");
         if (!tasks) return;
 
-        var categories = {
-          rnd: [
-            {
-              location: "연구센터 (경기도 동탄)",
-              roles: [
-                { title: "NCE (New Chemical Entity)", duties: ["저분자 기반 비만대사 신약 개발 연구", "약물설계, 유기화합물 합성 및 후보물질 탐색"], qualifications: ["석사 이상 학력 소지자", "화학, 약학 등 관련 전공자", "의약화학·약리학 등 신약개발 연구분야 지식 보유자"] },
-                { title: "QS&F (Quality Science & Formulation)", duties: ["신약 및 개량신약의 제제 연구", "의약품 품질 특성 분석과 제형 최적화"], qualifications: ["석사 이상 학력 소지자", "약학, 화학, 생명과학 관련 전공자"] },
-                { title: "MST (Manufacturing Science Technology)", duties: ["의약품 제조공정 개발 및 기술이전", "생산성·품질 개선을 위한 공정 연구"], qualifications: ["학사 이상 학력 소지자", "화학공학, 약학, 생명공학 관련 전공자"] },
-                { title: "TE (Toxicology Evaluation)", duties: ["신약 후보물질의 비임상 안전성 평가", "독성시험 설계 및 결과 분석"], qualifications: ["석사 이상 학력 소지자", "독성학, 약학, 생명과학 관련 전공자"] },
-                { title: "DST (Drug Science & Technology)", duties: ["신약 후보물질의 약효 및 약리 연구", "약물 작용기전 분석과 효능 평가"], qualifications: ["석사 이상 학력 소지자", "약학, 생명과학, 의생명과학 관련 전공자"] },
-                { title: "BSS (Biological & Structural Evaluation Science)", duties: ["바이오의약품 특성 및 구조 분석", "생물학적 활성 평가법 개발"], qualifications: ["석사 이상 학력 소지자", "생화학, 분자생물학, 생명과학 관련 전공자"] },
-              ],
-            },
-            {
-              location: "제제연구소 [의약혁신센터] (경기도 광교)",
-              roles: [
-                { title: "제제연구 (Formulation Research)", duties: ["개량신약 및 복합제 제형 연구", "제제 처방 최적화와 제품화 지원"], qualifications: ["석사 이상 학력 소지자", "약제학, 약학, 화학 관련 전공자"] },
-              ],
-            },
-          ],
-          production: [
-            { location: "팔탄공단 (경기도 화성)", roles: [
-              { title: "생산관리", duties: ["의약품 생산계획 수립 및 실적 관리", "제조공정 운영과 생산성 개선"], qualifications: ["학사 이상 학력 소지자", "산업공학, 화학공학, 약학 관련 전공자"] },
-              { title: "품질관리 (QC)", duties: ["원료·제품 시험 및 분석", "시험기기 관리와 품질 데이터 검토"], qualifications: ["학사 이상 학력 소지자", "화학, 생명과학, 약학 관련 전공자"] },
-              { title: "품질보증 (QA)", duties: ["GMP 문서 및 품질시스템 관리", "제조·시험 과정의 품질 기준 점검"], qualifications: ["학사 이상 학력 소지자", "약학, 화학, 생명과학 관련 전공자"] },
-            ] },
-            { location: "평택공단 (경기도 평택)", roles: [
-              { title: "바이오의약품 생산", duties: ["바이오의약품 제조공정 운영", "생산 설비 및 공정 기록 관리"], qualifications: ["학사 이상 학력 소지자", "생명공학, 화학공학 관련 전공자"] },
-            ] },
-          ],
-          sales: [
-            { location: "전국 영업지점", roles: [
-              { title: "전문의약품 영업 (ETC)", duties: ["의료기관 대상 전문의약품 정보 전달", "고객 관계 관리 및 영업 전략 실행"], qualifications: ["학사 이상 학력 소지자", "운전면허 소지자 우대"] },
-              { title: "약국 영업 (OTC)", duties: ["약국 대상 일반의약품 및 건강제품 상담", "지역별 거래처 관리와 시장 분석"], qualifications: ["학사 이상 학력 소지자", "커뮤니케이션 역량 보유자"] },
-            ] },
-            { location: "본사 (서울 송파)", roles: [
-              { title: "영업기획", duties: ["영업 목표와 실행계획 수립", "시장·실적 분석 및 영업활동 지원"], qualifications: ["학사 이상 학력 소지자", "데이터 분석 및 문서작성 역량 보유자"] },
-            ] },
-          ],
-          management: [
-            { location: "본사 (서울 송파)", roles: [
-              { title: "인사", duties: ["인사제도 기획 및 운영", "인재 채용과 조직문화 개선 지원"], qualifications: ["학사 이상 학력 소지자", "상경·인문·사회과학 관련 전공자"] },
-              { title: "재무회계", duties: ["결산 및 재무제표 작성", "회계 기준과 내부통제 관리"], qualifications: ["학사 이상 학력 소지자", "회계·세무 관련 전공 또는 자격 보유자 우대"] },
-              { title: "정보기술", duties: ["사내 시스템 운영 및 개선", "IT 인프라와 정보보안 관리"], qualifications: ["학사 이상 학력 소지자", "컴퓨터공학·정보기술 관련 전공자"] },
-            ] },
-            { location: "계열사 및 사업장", roles: [
-              { title: "구매·SCM", duties: ["원부자재 구매와 공급망 운영", "협력사 관리 및 수급 안정화"], qualifications: ["학사 이상 학력 소지자", "상경·산업공학 관련 전공자 우대"] },
-            ] },
-          ],
-          clinical: [
-            { location: "본사 (서울 송파)", roles: [
-              { title: "임상 운영 (Clinical Operations)", duties: ["임상시험 계획과 진행 관리", "시험기관 및 협력사 커뮤니케이션"], qualifications: ["학사 이상 학력 소지자", "약학, 간호학, 생명과학 관련 전공자"] },
-              { title: "임상 데이터 관리", duties: ["임상시험 데이터 검토 및 품질 관리", "데이터베이스 구축과 운영"], qualifications: ["학사 이상 학력 소지자", "생명과학 또는 통계 관련 전공자 우대"] },
-            ] },
-            { location: "임상시험센터", roles: [
-              { title: "임상 QA", duties: ["임상시험 품질시스템 운영", "GCP 기준에 따른 점검과 교육"], qualifications: ["학사 이상 학력 소지자", "임상시험 또는 품질관리 경험자 우대"] },
-            ] },
-          ],
-          global: [
-            { location: "본사 (서울 송파)", roles: [
-              { title: "글로벌 사업개발", duties: ["해외 파트너십 및 사업기회 발굴", "글로벌 시장·사업성 분석"], qualifications: ["학사 이상 학력 소지자", "영어 커뮤니케이션 능통자"] },
-              { title: "해외사업 운영", duties: ["해외 법인 및 파트너 업무 지원", "수출·계약 관련 업무 조율"], qualifications: ["학사 이상 학력 소지자", "영어 및 제2외국어 가능자 우대"] },
-            ] },
-            { location: "해외 법인 및 파트너사", roles: [
-              { title: "글로벌 마케팅", duties: ["국가별 제품 마케팅 전략 수립", "현지 시장과 고객 인사이트 분석"], qualifications: ["학사 이상 학력 소지자", "마케팅 또는 해외사업 경험자 우대"] },
-            ] },
-          ],
-          healthcare: [
-            { location: "한미헬스케어 (서울 송파)", roles: [
-              { title: "건강기능식품 기획", duties: ["건강기능식품 제품 기획과 개발", "시장·소비자 조사 및 출시 관리"], qualifications: ["학사 이상 학력 소지자", "식품영양, 생명과학 관련 전공자"] },
-              { title: "브랜드 마케팅", duties: ["브랜드 캠페인 및 콘텐츠 기획", "온라인·오프라인 마케팅 운영"], qualifications: ["학사 이상 학력 소지자", "마케팅 및 디지털 콘텐츠 경험자 우대"] },
-            ] },
-            { location: "온라인 사업부", roles: [
-              { title: "이커머스 운영", duties: ["온라인 채널 운영과 매출 관리", "상품 노출 및 프로모션 기획"], qualifications: ["학사 이상 학력 소지자", "이커머스 또는 유통 경험자 우대"] },
-            ] },
-          ],
-        };
+        var taskData = [
+          {
+            category: "rnd",
+            details: [
+              {
+                location: "연구센터 (경기도 동탄)",
+                count: "6",
+                fields: [
+                  "NCE (New Chemical Entity)",
+                  "QS&F (Quality Science & Formulation)",
+                  "MST (Manufacturing Science Technology)",
+                  "TE (Toxicology Evaluation)",
+                  "DST (Drug Science & Technology)",
+                  "BSS (Biological & Structural Evaluation Science)",
+                ],
+              },
+              {
+                location: "제제연구소 [의약혁신센터] (경기도 광교)",
+                count: "1",
+                fields: ["신제형연구 (전문연구요원)"],
+              },
+            ],
+          },
+          {
+            category: "prod",
+            details: [
+              {
+                location: "팔탄제조센터 (경기도 화성)",
+                count: "4",
+                fields: ["제조", "포장", "품질관리", "기술지원"],
+              },
+              {
+                location: "평택제조센터 (경기도 평택)",
+                count: "2",
+                fields: ["DS생산 (학사)", "DS생산 (전문학사)"],
+              },
+            ],
+          },
+          {
+            category: "sales",
+            details: [
+              {
+                location: "전국 (Mobile Office)",
+                count: "1",
+                fields: ["제약영업"],
+              },
+              {
+                location: "본사 (서울시 송파구)",
+                count: "2",
+                fields: ["해외영업", "IT솔루션영업"],
+              },
+            ],
+          },
+          {
+            category: "mps",
+            details: [
+              {
+                location: "본사 (서울시 송파구)",
+                count: "5",
+                fields: ["구매", "국내법무", "특허", "안전관리", "인사총무"],
+              },
+            ],
+          },
+          {
+            category: "cl",
+            details: [
+              {
+                location: "본사 (서울시 송파구)",
+                count: "4",
+                fields: [
+                  "Pipeline Valuation (신약가치평가)",
+                  "Market Intelligence (신약개발 전략분석)",
+                  "Data Management",
+                  "Biostatistician",
+                ],
+              },
+            ],
+          },
+          {
+            category: "global",
+            details: [
+              {
+                location: "본사 (서울시 송파구)",
+                count: "2",
+                fields: ["Global Regulatory Affairs", "Licensing"],
+              },
+            ],
+          },
+          {
+            category: "healthcare",
+            details: [
+              {
+                location: "본사 (서울시 송파구)",
+                count: "9",
+                fields: [
+                  "식품영업",
+                  "식품커머스운영",
+                  "화장품 커머스사업기획",
+                  "화장품 상품기획",
+                  "화장품 홈쇼핑영업/운영",
+                  "화장품 국내영업",
+                  "화장품 해외영업",
+                  "화장품 글로벌마케팅",
+                  "해외이커머스운영",
+                ],
+              },
+              {
+                location: "서울/수도권/영남",
+                count: "1",
+                fields: ["의료기기영업"],
+              },
+            ],
+          },
+        ];
 
         var tabs = tasks.querySelectorAll("[data-task-category]");
         var groups = tasks.querySelector("#tasks-groups");
         var modal = tasks.querySelector(".tasks__modal");
+        var modalBanner = tasks.querySelector(".tasks__modal-banner");
         var modalTitle = tasks.querySelector("#tasks-modal-title");
         var modalCategory = tasks.querySelector("[data-tasks-modal-category]");
         var modalLocation = tasks.querySelector("[data-tasks-modal-location]");
-        var modalExperience = tasks.querySelector("[data-tasks-modal-experience]");
+        var modalJobCategory = tasks.querySelector("[data-tasks-modal-job-category]");
         var modalDuties = tasks.querySelector("[data-tasks-modal-duties]");
         var modalQualifications = tasks.querySelector("[data-tasks-modal-qualifications]");
+        var modalPreferred = tasks.querySelector("[data-tasks-modal-preferred]");
         var activeCategory = "R&D";
         var returnFocus = null;
+        var popupImageRequests = Object.create(null);
+        var popupDataRequest = fetch("./data/pop_data.json").then(function (response) {
+          if (!response.ok) throw new Error("직무 상세 정보를 불러오지 못했습니다.");
+          return response.json();
+        });
 
         function addArrow(className, direction) {
           var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -5092,17 +5156,14 @@
           return svg;
         }
 
-        function appendList(list, items) {
-          list.replaceChildren();
-          for (var i = 0; i < items.length; i++) {
-            var item = document.createElement("li");
-            item.textContent = items[i];
-            list.appendChild(item);
-          }
-        }
-
         function renderCategory(key, tab) {
-          var categoryGroups = categories[key] || [];
+          var categoryGroups = [];
+          for (var categoryIndex = 0; categoryIndex < taskData.length; categoryIndex++) {
+            if (taskData[categoryIndex].category === key) {
+              categoryGroups = taskData[categoryIndex].details;
+              break;
+            }
+          }
           activeCategory = tab.textContent.trim();
           groups.setAttribute("aria-labelledby", tab.id);
           groups.replaceChildren();
@@ -5127,8 +5188,8 @@
             title.className = "tasks__group-title";
             title.textContent = data.location;
             count.className = "tasks__count";
-            count.textContent = data.roles.length;
-            count.setAttribute("aria-label", data.roles.length + "개 직무");
+            count.textContent = data.count;
+            count.setAttribute("aria-label", data.count + "개 직무");
             trigger.appendChild(title);
             trigger.appendChild(count);
             trigger.appendChild(addArrow("tasks__chevron", "down"));
@@ -5139,15 +5200,19 @@
             panel.inert = true;
             panelInner.className = "tasks__panel-inner";
             cards.className = "tasks__cards";
-            for (var j = 0; j < data.roles.length; j++) {
+            for (var j = 0; j < data.fields.length; j++) {
               var card = document.createElement("button");
               var cardTitle = document.createElement("span");
               card.className = "tasks__card";
               card.type = "button";
-              cardTitle.textContent = data.roles[j].title;
+              cardTitle.textContent = data.fields[j];
               card.appendChild(cardTitle);
               card.appendChild(addArrow("tasks__card-arrow", "right"));
-              card._taskData = data.roles[j];
+              card._taskData = {
+                title: data.fields[j],
+                fields: data.fields,
+                count: data.count,
+              };
               card._taskLocation = data.location;
               cards.appendChild(card);
             }
@@ -5158,18 +5223,57 @@
           }
         }
 
+        function renderList(list, entries) {
+          list.replaceChildren();
+          for (var i = 0; i < entries.length; i++) {
+            var item = document.createElement("li");
+            item.textContent = entries[i];
+            list.appendChild(item);
+          }
+          list.parentElement.hidden = entries.length === 0;
+        }
+
+        function resolvePopupImage(imagePath) {
+          var path = imagePath && imagePath.charAt(0) === "/"
+            ? "." + imagePath
+            : imagePath;
+          if (!path) return Promise.resolve("./images/tasks_rnd_bg.jpg");
+          if (!popupImageRequests[path]) {
+            popupImageRequests[path] = fetch(path, { method: "HEAD" })
+              .then(function (response) {
+                return response.ok ? path : "./images/tasks_rnd_bg.jpg";
+              })
+              .catch(function () {
+                return "./images/tasks_rnd_bg.jpg";
+              });
+          }
+          return popupImageRequests[path];
+        }
+
         function openModal(card) {
-          var data = card._taskData;
-          if (!data || !modal.showModal) return;
-          returnFocus = card;
-          modalTitle.textContent = data.title;
-          modalCategory.textContent = activeCategory;
-          modalLocation.textContent = " | " + card._taskLocation;
-          modalExperience.textContent = "*신입/경력";
-          appendList(modalDuties, data.duties);
-          appendList(modalQualifications, data.qualifications);
-          modal.showModal();
-          tasks.querySelector("[data-tasks-modal-close]").focus();
+          if (!card._taskData || !modal.showModal) return;
+          var selectedCategory = activeCategory;
+          popupDataRequest.then(function (records) {
+            var data = records.find(function (record) {
+              return record.title === card._taskData.title && record.department === selectedCategory;
+            });
+            if (!data) return;
+
+            returnFocus = card;
+            modalTitle.textContent = data.title;
+            modalCategory.textContent = data.department;
+            modalLocation.textContent = " | " + data.location;
+            modalJobCategory.textContent = data.category;
+            renderList(modalDuties, data.job_description || []);
+            renderList(modalQualifications, data.qualifications || []);
+            renderList(modalPreferred, data.preferred || []);
+
+            resolvePopupImage(data.image).then(function (imagePath) {
+              modalBanner.style.backgroundImage = 'url("' + imagePath + '")';
+              modal.showModal();
+              tasks.querySelector("[data-tasks-modal-close]").focus();
+            });
+          });
         }
 
         for (var i = 0; i < tabs.length; i++) {
