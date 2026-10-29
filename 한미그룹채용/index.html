@@ -2884,6 +2884,466 @@
           align-items: flex-start;
         }
       }
+
+      /* =========================================================
+       Section : 직무소개 (.tasks)
+       ========================================================= */
+      .tasks {
+        position: relative;
+        overflow: hidden;
+        background: var(--color-white);
+        color: #111;
+      }
+      .tasks__hero {
+        position: relative;
+        height: 350px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #ffe2da 0%, #fff8f5 76%, #fff 100%);
+      }
+      .tasks__watermark {
+        position: absolute;
+        inset: 0 0 auto;
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        object-position: center top;
+        pointer-events: none;
+      }
+      .tasks__character {
+        position: absolute;
+        left: 50%;
+        bottom: -1px;
+        width: clamp(200px, 28vw, 300px);
+        height: auto;
+        object-fit: contain;
+        transform: translateX(-50%);
+      }
+      .tasks__inner {
+        width: min(1224px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 66px 0 110px;
+      }
+      .tasks__head {
+        text-align: center;
+      }
+      .tasks__title {
+        margin: 0;
+        font-size: 34px;
+        line-height: 1.35;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+      .tasks__description {
+        margin: 18px 0 0;
+        font-size: 15px;
+        line-height: 1.7;
+        color: #555;
+      }
+      .tasks__tabs-wrap {
+        margin-top: 50px;
+        border-bottom: 1px solid #e6e6e6;
+      }
+      .tasks__tabs {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .tasks__tab {
+        flex: 1 1 0;
+        min-width: 0;
+        min-height: 62px;
+        padding: 0 16px;
+        border-radius: 12px 12px 0 0;
+        color: #777;
+        font-size: 17px;
+        font-weight: 600;
+        white-space: nowrap;
+        transition:
+          color var(--transition),
+          background-color var(--transition),
+          box-shadow var(--transition);
+      }
+      .tasks__tab[aria-selected="true"] {
+        color: var(--color-orange);
+        background: #fff8f5;
+        box-shadow: 0 2px 14px rgba(120, 70, 50, 0.14);
+      }
+      .tasks__tab:hover,
+      .tasks__tab:focus-visible {
+        color: var(--color-orange);
+      }
+      .tasks__groups {
+        border-top: 0;
+      }
+      .tasks__group {
+        border-bottom: 1px solid #e6e6e6;
+      }
+      .tasks__group-trigger {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        min-height: 78px;
+        padding: 0 36px;
+        text-align: left;
+      }
+      .tasks__group-title {
+        flex: 1;
+        min-width: 0;
+        font-size: 21px;
+        line-height: 1.4;
+        font-weight: 700;
+        color: #777;
+        transition: color var(--transition);
+      }
+      .tasks__group.is-open .tasks__group-title,
+      .tasks__group-trigger:hover .tasks__group-title,
+      .tasks__group-trigger:focus-visible .tasks__group-title {
+        color: var(--color-orange);
+      }
+      .tasks__count {
+        flex: none;
+        min-width: 44px;
+        padding: 2px 10px;
+        border-radius: 999px;
+        background: var(--color-orange);
+        color: var(--color-white);
+        font-size: 17px;
+        line-height: 1.2;
+        font-weight: 700;
+        text-align: center;
+      }
+      .tasks__chevron {
+        flex: none;
+        width: 16px;
+        height: 16px;
+        color: #999;
+        transition: transform var(--transition);
+      }
+      .tasks__group.is-open .tasks__chevron {
+        transform: rotate(180deg);
+      }
+      .tasks__cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        padding: 0 36px 32px;
+      }
+      .tasks__cards[hidden] {
+        display: none;
+      }
+      .tasks__card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 78px;
+        padding: 0 28px;
+        border: 1px solid #ffe1d8;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #fff 0%, #fffaf8 100%);
+        box-shadow: 0 4px 14px rgba(134, 83, 65, 0.1);
+        text-align: left;
+        font-size: 18px;
+        line-height: 1.4;
+        font-weight: 500;
+        transition:
+          transform var(--transition),
+          border-color var(--transition),
+          box-shadow var(--transition);
+      }
+      .tasks__card:hover,
+      .tasks__card:focus-visible {
+        transform: translateY(-2px);
+        border-color: #ffad95;
+        box-shadow: 0 8px 20px rgba(134, 83, 65, 0.16);
+      }
+      .tasks__card-arrow {
+        flex: none;
+        width: 20px;
+        height: 20px;
+        color: #888;
+      }
+      .tasks__modal {
+        position: fixed;
+        width: min(680px, calc(100vw - 32px));
+        max-width: none;
+        max-height: min(82vh, 760px);
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        border-radius: 18px;
+        background: var(--color-white);
+        color: #111;
+        box-shadow: 0 18px 64px rgba(0, 0, 0, 0.25);
+      }
+      .tasks__modal::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+      }
+      .tasks__modal-banner {
+        position: relative;
+        height: 136px;
+        background: #dce8f4 url("./images/tasks_rnd_bg.jpg") center / cover no-repeat;
+      }
+      .tasks__modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--color-orange);
+        color: var(--color-white);
+      }
+      .tasks__modal-close svg {
+        width: 16px;
+        height: 16px;
+      }
+      .tasks__modal-body {
+        max-height: calc(min(82vh, 760px) - 136px);
+        padding: 30px 50px 38px;
+        overflow-y: auto;
+      }
+      .tasks__modal-heading {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 8px 14px;
+      }
+      .tasks__modal-title {
+        margin: 0;
+        font-size: 24px;
+        line-height: 1.35;
+        font-weight: 700;
+      }
+      .tasks__modal-meta {
+        margin: 0;
+        color: #888;
+        font-size: 15px;
+      }
+      .tasks__modal-meta strong {
+        color: var(--color-orange);
+      }
+      .tasks__experience {
+        margin: 8px 0 0;
+        color: #777;
+        font-size: 13px;
+      }
+      .tasks__detail-section {
+        margin-top: 42px;
+      }
+      .tasks__detail-section + .tasks__detail-section {
+        margin-top: 32px;
+        padding-top: 28px;
+        border-top: 1px solid #e6e6e6;
+      }
+      .tasks__detail-heading {
+        margin: 0 0 14px;
+        font-size: 17px;
+        font-weight: 700;
+      }
+      .tasks__detail-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .tasks__detail-list li {
+        position: relative;
+        padding-left: 14px;
+        color: #444;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .tasks__detail-list li::before {
+        content: "";
+        position: absolute;
+        top: 0.72em;
+        left: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--color-orange);
+      }
+
+      @media (max-width: 1024px) {
+        .tasks__hero {
+          height: 310px;
+        }
+        .tasks__watermark {
+          height: 190px;
+        }
+        .tasks__inner {
+          width: calc(100% - 48px);
+          padding: 58px 0 86px;
+        }
+        .tasks__title {
+          font-size: 28px;
+        }
+        .tasks__description {
+          margin-top: 14px;
+          font-size: 14px;
+        }
+        .tasks__tabs-wrap {
+          margin-top: 42px;
+        }
+        .tasks__tab {
+          min-height: 56px;
+          padding: 0 10px;
+          font-size: 15px;
+        }
+        .tasks__group-trigger {
+          min-height: 72px;
+          padding: 0 22px;
+        }
+        .tasks__group-title {
+          font-size: 18px;
+        }
+        .tasks__cards {
+          gap: 14px;
+          padding: 0 22px 26px;
+        }
+        .tasks__card {
+          min-height: 72px;
+          padding: 0 20px;
+          border-radius: 14px;
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .tasks__hero {
+          height: 302px;
+        }
+        .tasks__watermark {
+          height: 160px;
+          object-fit: cover;
+        }
+        .tasks__inner {
+          width: 100%;
+          padding: 58px 18px 72px;
+        }
+        .tasks__title {
+          font-size: 21px;
+          line-height: 1.45;
+        }
+        .tasks__description {
+          max-width: 330px;
+          margin: 12px auto 0;
+          font-size: 12px;
+          line-height: 1.7;
+        }
+        .tasks__tabs-wrap {
+          margin: 32px -18px 0;
+          padding: 0 18px;
+          overflow: hidden;
+        }
+        .tasks__tabs {
+          justify-content: flex-start;
+          gap: 8px;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -webkit-overflow-scrolling: touch;
+        }
+        .tasks__tabs::-webkit-scrollbar {
+          display: none;
+        }
+        .tasks__tab {
+          flex: 0 0 auto;
+          min-height: 52px;
+          padding: 0 18px;
+          border-radius: 12px;
+          font-size: 13px;
+        }
+        .tasks__group-trigger {
+          gap: 9px;
+          min-height: 64px;
+          padding: 0 10px;
+        }
+        .tasks__group-title {
+          font-size: 14px;
+          line-height: 1.45;
+        }
+        .tasks__count {
+          min-width: 34px;
+          padding: 2px 8px;
+          font-size: 13px;
+        }
+        .tasks__chevron {
+          width: 14px;
+          height: 14px;
+        }
+        .tasks__cards {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+          padding: 0 0 20px;
+        }
+        .tasks__card {
+          min-height: 62px;
+          padding: 0 16px;
+          border-radius: 12px;
+          font-size: 14px;
+        }
+        .tasks__card-arrow {
+          width: 18px;
+          height: 18px;
+        }
+        .tasks__modal {
+          width: calc(100vw - 28px);
+          max-height: 86vh;
+          border-radius: 14px;
+        }
+        .tasks__modal-banner {
+          height: 100px;
+        }
+        .tasks__modal-close {
+          top: 10px;
+          right: 10px;
+          width: 34px;
+          height: 34px;
+        }
+        .tasks__modal-body {
+          max-height: calc(86vh - 100px);
+          padding: 22px 22px 28px;
+        }
+        .tasks__modal-title {
+          font-size: 19px;
+        }
+        .tasks__modal-meta {
+          font-size: 13px;
+        }
+        .tasks__experience {
+          font-size: 12px;
+        }
+        .tasks__detail-section {
+          margin-top: 30px;
+        }
+        .tasks__detail-section + .tasks__detail-section {
+          margin-top: 24px;
+          padding-top: 22px;
+        }
+        .tasks__detail-heading {
+          font-size: 15px;
+        }
+        .tasks__detail-list li {
+          font-size: 13px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .tasks__tab,
+        .tasks__group-title,
+        .tasks__chevron,
+        .tasks__card {
+          transition: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -4142,6 +4602,81 @@
           </div>
         </div>
       </section>
+      <section class="tasks" id="jobs" aria-labelledby="tasks-title">
+        <div class="tasks__hero" aria-hidden="true">
+          <img
+            class="tasks__watermark"
+            src="./images/tasks_bg_title.png"
+            alt=""
+            width="2880"
+            height="720"
+          />
+          <img
+            class="tasks__character"
+            src="./images/tasks_ch.png"
+            alt=""
+            width="2048"
+            height="1386"
+          />
+        </div>
+        <div class="tasks__inner">
+          <div class="tasks__head">
+            <h2 class="tasks__title" id="tasks-title">
+              알약이를 따라<br />나에게 맞는 직무를 찾아봐요!
+            </h2>
+            <p class="tasks__description">
+              연구부터 생산, 영업, 경영지원까지 당신의 가능성이 빛날 자리를 안내해 드릴게요.
+            </p>
+          </div>
+          <div class="tasks__tabs-wrap">
+            <div class="tasks__tabs" role="tablist" aria-label="직무 분야">
+              <button class="tasks__tab" id="tasks-tab-rnd" type="button" role="tab" aria-selected="true" aria-controls="tasks-groups" data-task-category="rnd">R&amp;D</button>
+              <button class="tasks__tab" id="tasks-tab-production" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="production">생산/품질</button>
+              <button class="tasks__tab" id="tasks-tab-sales" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="sales">영업</button>
+              <button class="tasks__tab" id="tasks-tab-management" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="management">경영관리</button>
+              <button class="tasks__tab" id="tasks-tab-clinical" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="clinical">임상</button>
+              <button class="tasks__tab" id="tasks-tab-global" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="global">글로벌</button>
+              <button class="tasks__tab" id="tasks-tab-healthcare" type="button" role="tab" aria-selected="false" aria-controls="tasks-groups" data-task-category="healthcare">헬스케어</button>
+            </div>
+          </div>
+          <div
+            class="tasks__groups"
+            id="tasks-groups"
+            role="tabpanel"
+            aria-labelledby="tasks-tab-rnd"
+            tabindex="0"
+          ></div>
+        </div>
+        <dialog class="tasks__modal" aria-labelledby="tasks-modal-title">
+          <div class="tasks__modal-banner">
+            <button
+              class="tasks__modal-close"
+              type="button"
+              aria-label="상세 정보 닫기"
+              data-tasks-modal-close
+            >
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+              </svg>
+            </button>
+          </div>
+          <div class="tasks__modal-body">
+            <div class="tasks__modal-heading">
+              <h2 class="tasks__modal-title" id="tasks-modal-title"></h2>
+              <p class="tasks__modal-meta"><strong data-tasks-modal-category></strong><span data-tasks-modal-location></span></p>
+            </div>
+            <p class="tasks__experience" data-tasks-modal-experience></p>
+            <section class="tasks__detail-section" aria-labelledby="tasks-duty-title">
+              <h3 class="tasks__detail-heading" id="tasks-duty-title">직무 내용</h3>
+              <ul class="tasks__detail-list" data-tasks-modal-duties></ul>
+            </section>
+            <section class="tasks__detail-section" aria-labelledby="tasks-qualification-title">
+              <h3 class="tasks__detail-heading" id="tasks-qualification-title">자격요건</h3>
+              <ul class="tasks__detail-list" data-tasks-modal-qualifications></ul>
+            </section>
+          </div>
+        </dialog>
+      </section>
     </main>
 
     <!-- ================= Footer (시안 없음) ================= -->
@@ -4420,6 +4955,238 @@
         if (mq.addEventListener)
           mq.addEventListener("change", onViewportChange);
         else if (mq.addListener) mq.addListener(onViewportChange);
+      })();
+
+      (function () {
+        "use strict";
+
+        var tasks = document.querySelector(".tasks");
+        if (!tasks) return;
+
+        var categories = {
+          rnd: [
+            {
+              location: "연구센터 (경기도 동탄)",
+              roles: [
+                { title: "NCE (New Chemical Entity)", duties: ["저분자 기반 비만대사 신약 개발 연구", "약물설계, 유기화합물 합성 및 후보물질 탐색"], qualifications: ["석사 이상 학력 소지자", "화학, 약학 등 관련 전공자", "의약화학·약리학 등 신약개발 연구분야 지식 보유자"] },
+                { title: "QS&F (Quality Science & Formulation)", duties: ["신약 및 개량신약의 제제 연구", "의약품 품질 특성 분석과 제형 최적화"], qualifications: ["석사 이상 학력 소지자", "약학, 화학, 생명과학 관련 전공자"] },
+                { title: "MST (Manufacturing Science Technology)", duties: ["의약품 제조공정 개발 및 기술이전", "생산성·품질 개선을 위한 공정 연구"], qualifications: ["학사 이상 학력 소지자", "화학공학, 약학, 생명공학 관련 전공자"] },
+                { title: "TE (Toxicology Evaluation)", duties: ["신약 후보물질의 비임상 안전성 평가", "독성시험 설계 및 결과 분석"], qualifications: ["석사 이상 학력 소지자", "독성학, 약학, 생명과학 관련 전공자"] },
+                { title: "DST (Drug Science & Technology)", duties: ["신약 후보물질의 약효 및 약리 연구", "약물 작용기전 분석과 효능 평가"], qualifications: ["석사 이상 학력 소지자", "약학, 생명과학, 의생명과학 관련 전공자"] },
+                { title: "BSS (Biological & Structural Evaluation Science)", duties: ["바이오의약품 특성 및 구조 분석", "생물학적 활성 평가법 개발"], qualifications: ["석사 이상 학력 소지자", "생화학, 분자생물학, 생명과학 관련 전공자"] },
+              ],
+            },
+            {
+              location: "제제연구소 [의약혁신센터] (경기도 광교)",
+              roles: [
+                { title: "제제연구 (Formulation Research)", duties: ["개량신약 및 복합제 제형 연구", "제제 처방 최적화와 제품화 지원"], qualifications: ["석사 이상 학력 소지자", "약제학, 약학, 화학 관련 전공자"] },
+              ],
+            },
+          ],
+          production: [
+            { location: "팔탄공단 (경기도 화성)", roles: [
+              { title: "생산관리", duties: ["의약품 생산계획 수립 및 실적 관리", "제조공정 운영과 생산성 개선"], qualifications: ["학사 이상 학력 소지자", "산업공학, 화학공학, 약학 관련 전공자"] },
+              { title: "품질관리 (QC)", duties: ["원료·제품 시험 및 분석", "시험기기 관리와 품질 데이터 검토"], qualifications: ["학사 이상 학력 소지자", "화학, 생명과학, 약학 관련 전공자"] },
+              { title: "품질보증 (QA)", duties: ["GMP 문서 및 품질시스템 관리", "제조·시험 과정의 품질 기준 점검"], qualifications: ["학사 이상 학력 소지자", "약학, 화학, 생명과학 관련 전공자"] },
+            ] },
+            { location: "평택공단 (경기도 평택)", roles: [
+              { title: "바이오의약품 생산", duties: ["바이오의약품 제조공정 운영", "생산 설비 및 공정 기록 관리"], qualifications: ["학사 이상 학력 소지자", "생명공학, 화학공학 관련 전공자"] },
+            ] },
+          ],
+          sales: [
+            { location: "전국 영업지점", roles: [
+              { title: "전문의약품 영업 (ETC)", duties: ["의료기관 대상 전문의약품 정보 전달", "고객 관계 관리 및 영업 전략 실행"], qualifications: ["학사 이상 학력 소지자", "운전면허 소지자 우대"] },
+              { title: "약국 영업 (OTC)", duties: ["약국 대상 일반의약품 및 건강제품 상담", "지역별 거래처 관리와 시장 분석"], qualifications: ["학사 이상 학력 소지자", "커뮤니케이션 역량 보유자"] },
+            ] },
+            { location: "본사 (서울 송파)", roles: [
+              { title: "영업기획", duties: ["영업 목표와 실행계획 수립", "시장·실적 분석 및 영업활동 지원"], qualifications: ["학사 이상 학력 소지자", "데이터 분석 및 문서작성 역량 보유자"] },
+            ] },
+          ],
+          management: [
+            { location: "본사 (서울 송파)", roles: [
+              { title: "인사", duties: ["인사제도 기획 및 운영", "인재 채용과 조직문화 개선 지원"], qualifications: ["학사 이상 학력 소지자", "상경·인문·사회과학 관련 전공자"] },
+              { title: "재무회계", duties: ["결산 및 재무제표 작성", "회계 기준과 내부통제 관리"], qualifications: ["학사 이상 학력 소지자", "회계·세무 관련 전공 또는 자격 보유자 우대"] },
+              { title: "정보기술", duties: ["사내 시스템 운영 및 개선", "IT 인프라와 정보보안 관리"], qualifications: ["학사 이상 학력 소지자", "컴퓨터공학·정보기술 관련 전공자"] },
+            ] },
+            { location: "계열사 및 사업장", roles: [
+              { title: "구매·SCM", duties: ["원부자재 구매와 공급망 운영", "협력사 관리 및 수급 안정화"], qualifications: ["학사 이상 학력 소지자", "상경·산업공학 관련 전공자 우대"] },
+            ] },
+          ],
+          clinical: [
+            { location: "본사 (서울 송파)", roles: [
+              { title: "임상 운영 (Clinical Operations)", duties: ["임상시험 계획과 진행 관리", "시험기관 및 협력사 커뮤니케이션"], qualifications: ["학사 이상 학력 소지자", "약학, 간호학, 생명과학 관련 전공자"] },
+              { title: "임상 데이터 관리", duties: ["임상시험 데이터 검토 및 품질 관리", "데이터베이스 구축과 운영"], qualifications: ["학사 이상 학력 소지자", "생명과학 또는 통계 관련 전공자 우대"] },
+            ] },
+            { location: "임상시험센터", roles: [
+              { title: "임상 QA", duties: ["임상시험 품질시스템 운영", "GCP 기준에 따른 점검과 교육"], qualifications: ["학사 이상 학력 소지자", "임상시험 또는 품질관리 경험자 우대"] },
+            ] },
+          ],
+          global: [
+            { location: "본사 (서울 송파)", roles: [
+              { title: "글로벌 사업개발", duties: ["해외 파트너십 및 사업기회 발굴", "글로벌 시장·사업성 분석"], qualifications: ["학사 이상 학력 소지자", "영어 커뮤니케이션 능통자"] },
+              { title: "해외사업 운영", duties: ["해외 법인 및 파트너 업무 지원", "수출·계약 관련 업무 조율"], qualifications: ["학사 이상 학력 소지자", "영어 및 제2외국어 가능자 우대"] },
+            ] },
+            { location: "해외 법인 및 파트너사", roles: [
+              { title: "글로벌 마케팅", duties: ["국가별 제품 마케팅 전략 수립", "현지 시장과 고객 인사이트 분석"], qualifications: ["학사 이상 학력 소지자", "마케팅 또는 해외사업 경험자 우대"] },
+            ] },
+          ],
+          healthcare: [
+            { location: "한미헬스케어 (서울 송파)", roles: [
+              { title: "건강기능식품 기획", duties: ["건강기능식품 제품 기획과 개발", "시장·소비자 조사 및 출시 관리"], qualifications: ["학사 이상 학력 소지자", "식품영양, 생명과학 관련 전공자"] },
+              { title: "브랜드 마케팅", duties: ["브랜드 캠페인 및 콘텐츠 기획", "온라인·오프라인 마케팅 운영"], qualifications: ["학사 이상 학력 소지자", "마케팅 및 디지털 콘텐츠 경험자 우대"] },
+            ] },
+            { location: "온라인 사업부", roles: [
+              { title: "이커머스 운영", duties: ["온라인 채널 운영과 매출 관리", "상품 노출 및 프로모션 기획"], qualifications: ["학사 이상 학력 소지자", "이커머스 또는 유통 경험자 우대"] },
+            ] },
+          ],
+        };
+
+        var tabs = tasks.querySelectorAll("[data-task-category]");
+        var groups = tasks.querySelector("#tasks-groups");
+        var modal = tasks.querySelector(".tasks__modal");
+        var modalTitle = tasks.querySelector("#tasks-modal-title");
+        var modalCategory = tasks.querySelector("[data-tasks-modal-category]");
+        var modalLocation = tasks.querySelector("[data-tasks-modal-location]");
+        var modalExperience = tasks.querySelector("[data-tasks-modal-experience]");
+        var modalDuties = tasks.querySelector("[data-tasks-modal-duties]");
+        var modalQualifications = tasks.querySelector("[data-tasks-modal-qualifications]");
+        var activeCategory = "R&D";
+        var returnFocus = null;
+
+        function addArrow(className, direction) {
+          var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          svg.setAttribute("class", className);
+          svg.setAttribute("viewBox", "0 0 20 20");
+          svg.setAttribute("fill", "none");
+          svg.setAttribute("aria-hidden", "true");
+          var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", direction === "down" ? "m5 7 5 5 5-5" : "M3 10h13m-5-5 5 5-5 5");
+          path.setAttribute("stroke", "currentColor");
+          path.setAttribute("stroke-width", "1.8");
+          path.setAttribute("stroke-linecap", "round");
+          path.setAttribute("stroke-linejoin", "round");
+          svg.appendChild(path);
+          return svg;
+        }
+
+        function appendList(list, items) {
+          list.replaceChildren();
+          for (var i = 0; i < items.length; i++) {
+            var item = document.createElement("li");
+            item.textContent = items[i];
+            list.appendChild(item);
+          }
+        }
+
+        function renderCategory(key, tab) {
+          var categoryGroups = categories[key] || [];
+          activeCategory = tab.textContent.trim();
+          groups.setAttribute("aria-labelledby", tab.id);
+          groups.replaceChildren();
+
+          for (var i = 0; i < categoryGroups.length; i++) {
+            var data = categoryGroups[i];
+            var article = document.createElement("section");
+            var trigger = document.createElement("button");
+            var title = document.createElement("span");
+            var count = document.createElement("span");
+            var panel = document.createElement("div");
+            var groupId = "tasks-group-" + key + "-" + i;
+
+            article.className = "tasks__group";
+            trigger.className = "tasks__group-trigger";
+            trigger.type = "button";
+            trigger.id = groupId + "-trigger";
+            trigger.setAttribute("aria-expanded", "false");
+            trigger.setAttribute("aria-controls", groupId + "-cards");
+            title.className = "tasks__group-title";
+            title.textContent = data.location;
+            count.className = "tasks__count";
+            count.textContent = data.roles.length;
+            count.setAttribute("aria-label", data.roles.length + "개 직무");
+            trigger.appendChild(title);
+            trigger.appendChild(count);
+            trigger.appendChild(addArrow("tasks__chevron", "down"));
+
+            panel.className = "tasks__cards";
+            panel.id = groupId + "-cards";
+            panel.hidden = true;
+            for (var j = 0; j < data.roles.length; j++) {
+              var card = document.createElement("button");
+              var cardTitle = document.createElement("span");
+              card.className = "tasks__card";
+              card.type = "button";
+              cardTitle.textContent = data.roles[j].title;
+              card.appendChild(cardTitle);
+              card.appendChild(addArrow("tasks__card-arrow", "right"));
+              card._taskData = data.roles[j];
+              card._taskLocation = data.location;
+              panel.appendChild(card);
+            }
+            article.replaceChildren(trigger, panel);
+            groups.appendChild(article);
+          }
+        }
+
+        function openModal(card) {
+          var data = card._taskData;
+          if (!data || !modal.showModal) return;
+          returnFocus = card;
+          modalTitle.textContent = data.title;
+          modalCategory.textContent = activeCategory;
+          modalLocation.textContent = " | " + card._taskLocation;
+          modalExperience.textContent = "*신입/경력";
+          appendList(modalDuties, data.duties);
+          appendList(modalQualifications, data.qualifications);
+          modal.showModal();
+          tasks.querySelector("[data-tasks-modal-close]").focus();
+        }
+
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].addEventListener("click", function () {
+            for (var j = 0; j < tabs.length; j++) {
+              tabs[j].setAttribute("aria-selected", tabs[j] === this ? "true" : "false");
+            }
+            renderCategory(this.getAttribute("data-task-category"), this);
+          });
+          tabs[i].addEventListener("keydown", function (event) {
+            var index = Array.prototype.indexOf.call(tabs, this);
+            if (event.key === "ArrowRight") index = (index + 1) % tabs.length;
+            else if (event.key === "ArrowLeft") index = (index - 1 + tabs.length) % tabs.length;
+            else if (event.key === "Home") index = 0;
+            else if (event.key === "End") index = tabs.length - 1;
+            else return;
+            event.preventDefault();
+            tabs[index].focus();
+            tabs[index].click();
+          });
+        }
+
+        groups.addEventListener("click", function (event) {
+          var trigger = event.target.closest(".tasks__group-trigger");
+          var card = event.target.closest(".tasks__card");
+          if (trigger) {
+            var panel = document.getElementById(trigger.getAttribute("aria-controls"));
+            var expanded = trigger.getAttribute("aria-expanded") === "true";
+            trigger.setAttribute("aria-expanded", expanded ? "false" : "true");
+            trigger.parentElement.classList.toggle("is-open", !expanded);
+            panel.hidden = expanded;
+          } else if (card) {
+            openModal(card);
+          }
+        });
+
+        tasks.querySelector("[data-tasks-modal-close]").addEventListener("click", function () {
+          modal.close();
+        });
+        modal.addEventListener("click", function (event) {
+          if (event.target === modal) modal.close();
+        });
+        modal.addEventListener("close", function () {
+          if (returnFocus && document.contains(returnFocus)) returnFocus.focus();
+        });
+
+        renderCategory("rnd", tasks.querySelector('[data-task-category="rnd"]'));
       })();
     </script>
   </body>
