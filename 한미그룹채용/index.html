@@ -2896,7 +2896,7 @@
       }
       .tasks__hero {
         position: relative;
-        height: 350px;
+        height: 659px;
         overflow: hidden;
         background: linear-gradient(180deg, #ffe2da 0%, #fff8f5 76%, #fff 100%);
       }
@@ -2912,9 +2912,9 @@
       .tasks__character {
         position: absolute;
         left: 50%;
-        bottom: -1px;
-        width: clamp(200px, 28vw, 300px);
-        height: auto;
+        bottom: 0;
+        width: 1171px;
+        height: 659px;
         object-fit: contain;
         transform: translateX(-50%);
       }
@@ -3024,14 +3024,28 @@
       .tasks__group.is-open .tasks__chevron {
         transform: rotate(180deg);
       }
+      .tasks__panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transition:
+          grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.25s ease;
+      }
+      .tasks__panel.is-open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+      }
+      .tasks__panel-inner {
+        min-height: 0;
+        padding-top: 4px;
+        overflow: hidden;
+      }
       .tasks__cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 18px;
         padding: 0 36px 32px;
-      }
-      .tasks__cards[hidden] {
-        display: none;
       }
       .tasks__card {
         display: flex;
@@ -3173,10 +3187,14 @@
 
       @media (max-width: 1024px) {
         .tasks__hero {
-          height: 310px;
+          height: 400px;
         }
         .tasks__watermark {
           height: 190px;
+        }
+        .tasks__character {
+          width: 700px;
+          height: 400px;
         }
         .tasks__inner {
           width: calc(100% - 48px);
@@ -3223,6 +3241,10 @@
         .tasks__watermark {
           height: 160px;
           object-fit: cover;
+        }
+        .tasks__character {
+          width: 420px;
+          height: 250px;
         }
         .tasks__inner {
           width: 100%;
@@ -3340,6 +3362,7 @@
         .tasks__tab,
         .tasks__group-title,
         .tasks__chevron,
+        .tasks__panel,
         .tasks__card {
           transition: none;
         }
@@ -5091,6 +5114,8 @@
             var title = document.createElement("span");
             var count = document.createElement("span");
             var panel = document.createElement("div");
+            var panelInner = document.createElement("div");
+            var cards = document.createElement("div");
             var groupId = "tasks-group-" + key + "-" + i;
 
             article.className = "tasks__group";
@@ -5108,9 +5133,12 @@
             trigger.appendChild(count);
             trigger.appendChild(addArrow("tasks__chevron", "down"));
 
-            panel.className = "tasks__cards";
+            panel.className = "tasks__panel";
             panel.id = groupId + "-cards";
-            panel.hidden = true;
+            panel.setAttribute("aria-hidden", "true");
+            panel.inert = true;
+            panelInner.className = "tasks__panel-inner";
+            cards.className = "tasks__cards";
             for (var j = 0; j < data.roles.length; j++) {
               var card = document.createElement("button");
               var cardTitle = document.createElement("span");
@@ -5121,8 +5149,10 @@
               card.appendChild(addArrow("tasks__card-arrow", "right"));
               card._taskData = data.roles[j];
               card._taskLocation = data.location;
-              panel.appendChild(card);
+              cards.appendChild(card);
             }
+            panelInner.appendChild(cards);
+            panel.appendChild(panelInner);
             article.replaceChildren(trigger, panel);
             groups.appendChild(article);
           }
@@ -5168,9 +5198,23 @@
           if (trigger) {
             var panel = document.getElementById(trigger.getAttribute("aria-controls"));
             var expanded = trigger.getAttribute("aria-expanded") === "true";
+            if (!expanded) {
+              var openGroups = groups.querySelectorAll(".tasks__group.is-open");
+              for (var i = 0; i < openGroups.length; i++) {
+                var openTrigger = openGroups[i].querySelector(".tasks__group-trigger");
+                var openPanel = document.getElementById(openTrigger.getAttribute("aria-controls"));
+                openTrigger.setAttribute("aria-expanded", "false");
+                openGroups[i].classList.remove("is-open");
+                openPanel.classList.remove("is-open");
+                openPanel.setAttribute("aria-hidden", "true");
+                openPanel.inert = true;
+              }
+            }
             trigger.setAttribute("aria-expanded", expanded ? "false" : "true");
             trigger.parentElement.classList.toggle("is-open", !expanded);
-            panel.hidden = expanded;
+            panel.classList.toggle("is-open", !expanded);
+            panel.setAttribute("aria-hidden", expanded ? "true" : "false");
+            panel.inert = expanded;
           } else if (card) {
             openModal(card);
           }
